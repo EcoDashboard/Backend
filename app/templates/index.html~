@@ -1,0 +1,30 @@
+
+<html>
+<head>
+	<title>{{title}} - microblog</title>
+</head>
+
+<script>
+function register() {
+    var frm = document.getElementById("login");
+    frm.action = '/register';
+    return true;
+}
+</script>
+
+<body>
+	<hr>
+   <h1> Hello there , This is the Login Page</h1>
+   	<hr>
+<form action="/login" method="POST" name="login"id="login" >
+   	USER NAME <input type="text" name="username">
+   	<br>
+   	<br>
+   	PASSWORD <input type="password" name="password">
+   	<br>
+   	<br>
+   	<input type="submit" value="Sign In">
+      <input type="submit" value="Register" onclick="register()">
+</form>
+</body>
+</html>
