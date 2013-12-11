@@ -45,3 +45,9 @@ def saveDetails():
 	db.session.close()
 
 	return user_name
+
+@app.route('/indicatorList', methods=['GET'])
+def indicatorList():
+	indicators = models.indicator_def.query.get(Ozone)
+	return jsonify(indicators)
+

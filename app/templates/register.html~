@@ -4,10 +4,13 @@
 <body>
 	<center><h1>REGISTERATION PAGE</h1></center>
 <form action="/saveDetails" method="POST" name="login"id="login">
+<br>
 
-USER Id &nbsp<input type="text" name="user_id">
+<body>
+	<center><h1>Show Indicators</h1></center>
+<form action="/indicatorList" method="GET" name="Show_Indicators"id="Show_Indicators">
 <br>
-<br>
+
 User Name &nbsp<input type="text" name="user_name">
 <br>
 <br>

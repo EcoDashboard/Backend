@@ -35,7 +35,7 @@ def register():
 def saveDetails():
 	user_name=request.form['user_name']
 	password=request.form['password']
-	hash = sha256_crypt.encrypt(password)
+	hash = hashlib.sha256(password).hexdigest()
 	city_id_admin = request.form['city_id_admin']
 	email=request.form['email']
 
@@ -45,3 +45,7 @@ def saveDetails():
 	db.session.close()
 
 	return user_name
+
+@app.route('/saveDetails', methods=['GET'])
+def indicatorList():
+	
