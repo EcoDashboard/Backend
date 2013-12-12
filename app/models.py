@@ -15,7 +15,7 @@ class user_data(db.Model):
 class indicator_def(db.Model):
     __tablename__ = 'indicator_def'
     ind_id = db.Column(db.String(40), primary_key = True)
-    name = db.Column(db.String(100), unique=False)
+    ind_name = db.Column(db.String(100), unique=False)
     designation = db.Column(db.String(100), unique=False)
     unit = db.Column(db.String(100), unique=False)
     description = db.Column(db.String(200), unique=False)
@@ -26,7 +26,7 @@ class indicator_def(db.Model):
     target_value = db.Column(db.Integer, unique=False)
 
     def __repr__(self):
-        return '<indicator_def %r>' % (self.indicator_def)
+        return '<indicator_def %r>' % (self.ind_id )
 
 class category_def(db.Model):
     __tablename__ = 'category_def'
@@ -36,5 +36,5 @@ class category_def(db.Model):
     weight = db.Column(db.Integer, unique=False)
 
     def __repr__(self):
-        return '<category_def %r>' % (self.category_def)
+        return '<category_def %r>' % (self.cat_id)
 
