@@ -1,6 +1,7 @@
 from app import db
 from sqlalchemy import Column, Integer, String
 
+
 class user_data(db.Model):
     __tablename__ = 'user_data'
     user_id = db.Column(db.Integer, primary_key = True)
@@ -26,7 +27,20 @@ class indicator_def(db.Model):
     target_value = db.Column(db.Integer, unique=False)
 
     def __repr__(self):
-        return '<indicator_def %r>' % (self.ind_id )
+        return '<indicator_def %r>' % (self.ind_id ) 
+
+    def returnString(self):
+    	return { 'ind_id' : self.ind_id	,
+		'ind_name' : self.ind_name,
+		'designation' : self.designation,
+		'unit' : self.unit,
+		'description' : self.description,
+		'category_id' : self.category_id,
+		'weight' : int(self.weight),
+		'upper_value' : int(self.upper_value),
+		'lower_value' : int(self.lower_value),
+		'target_value' : int(self.target_value)
+		}
 
 class category_def(db.Model):
     __tablename__ = 'category_def'
