@@ -2,7 +2,7 @@ from flask import render_template
 from app import app
 import json
 from flask import request, jsonify
-from app import models, db 
+from app import models, db
 import hashlib
 
 users={'naveen':'password','hanwei':123456}
@@ -50,7 +50,8 @@ def saveDetails():
 def indicatorList():
 	#indicators = models.indicator_def.query.get('1')
 	#return  jsonify(indicators.returnString())
-	indicators = models.indicator_def.query.all()
-	return  jsonify(json_list=[i.returnString() for i in indicators])
+	indicators = db.session.query(models.showIndicators).all()
+	return  jsonify(result = [i.returnString() for i in indicators], 
+			result2 = [i.returnString() for i in indicators])
 		
 
