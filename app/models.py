@@ -46,8 +46,17 @@ metadata = MetaData()
 indicator_def_join = Table('indicator_def', metadata,
 	Column('ind_id', Integer, primary_key=True),
         Column('ind_name', String),
+        Column( 'designation', String),
+	Column('unit', String),
+        Column('description', String),
+        Column( 'designation', String),	
+        Column( 'weight', Integer),
+        Column( 'upper_value', Integer),	
+        Column('lower_value', Integer),
+        Column( 'target_value', Integer),
 	Column('category_id', Integer, ForeignKey('category_def.cat_id'))
         )
+
 category_def_join = Table( 'category_def', metadata,
 	Column('cat_id', Integer, primary_key=True),
 	Column('cat_name', String)	            
@@ -60,17 +69,28 @@ class showIndicators(Base):
     __table__ = showIndcator_join
     ind_id = indicator_def_join.c.ind_id
     cat_name = category_def_join.c.cat_name
+    ind_name = indicator_def_join.c.ind_name
+    designation	= indicator_def_join.c.designation
+    unit = indicator_def_join.c.unit
+    description = indicator_def_join.c.description
+    category_id = indicator_def_join.c.category_id
+    cat_name = category_def_join.c.cat_name
+    weight = indicator_def_join.c.weight
+    upper_value = indicator_def_join.c.upper_value
+    lower_value = indicator_def_join.c.lower_value
+    target_value = indicator_def_join.c.target_value
+
     def returnString(self):
     	return { 'ind_id' : self.ind_id,
-		'cat_name' : self.cat_name
-	     #'ind_name' : showIndcator_join.ind_name,
-	     #'designation' : indicator_def.designation,
-	     #'unit' : indicator_def.unit,
-	     #'description' : indicator_def.description,
-	     #'category_id' : showIndcator_join.category_id,
-	     #'cat_name' : showIndcator_join.cat_name,
-	     #'weight' : int(indicator_def.weight),
-	     #'upper_value' : int(indicator_def.upper_value),
-	     #'lower_value' : int(indicator_def.lower_value),
-	     #'target_value' : int(indicator_def.target_value)
+		'cat_name' : self.cat_name,
+	        'ind_name' : self.ind_name,
+	        'designation' : self.designation,
+	        'unit' : self.unit,
+	        'description' : self.description,
+	        'category_id' : self.category_id,
+	        'cat_name' : self.cat_name,
+	        'weight' : int(self.weight),
+	        'upper_value' : int(self.upper_value),
+	        'lower_value' : int(self.lower_value),
+	        'target_value' : int(self.target_value)
 		}
