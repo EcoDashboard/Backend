@@ -61,3 +61,4 @@ def indicatorList():
 			 Land = [i.returnString() for i in Land_ind],
 			 Energy = [i.returnString() for i in Energy_ind],
 			 Bio_Diversity = [i.returnString() for i in Bio_Diversity_ind])
+#0000000000000000000
