@@ -58,7 +58,14 @@ def saveDetails():
 def indicatorList():
 	#indicators = models.indicator_def.query.get('1')
 	#return  jsonify(indicators.returnString())
-	indicators = models.indicator_def.query.all()
-	return  jsonify(json_list=[i.returnString() for i in indicators])
-		
-#lalalallala
+	Indicators = db.session.query(models.showIndicators)
+	Air_ind = Indicators.filter(models.showIndicators.cat_id == 1)
+	Water_ind = Indicators.filter(models.showIndicators.cat_id == 2)
+	Land_ind = Indicators.filter(models.showIndicators.cat_id == 3)
+	Energy_ind = Indicators.filter(models.showIndicators.cat_id == 4)
+	Bio_Diversity_ind = Indicators.filter(models.showIndicators.cat_id == 5)
+	return  jsonify( Air = [i.returnString() for i in Air_ind],
+			 Water = [i.returnString() for i in Water_ind],
+			 Land = [i.returnString() for i in Land_ind],
+			 Energy = [i.returnString() for i in Energy_ind],
+			 Bio_Diversity = [i.returnString() for i in Bio_Diversity_ind])
