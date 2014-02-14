@@ -15,6 +15,29 @@ class user_data(db.Model):
     def __repr__(self):
         return '<user_data %r>' % (self.user_name)
 
+class city_profile_data(db.Model):
+	__tablename__ = 'city_profile_data'
+	city_id = db.Column(db.String(30), primary_key=True)
+	city_name = db.Column(db.String(30), unique=False)
+	country_name = db.Column(db.String(30), unique=False)
+	state_name = db.Column(db.String(30), unique=False)
+	email = db.Column(db.String(100), unique=False)
+	contact_number = db.Column(db.Integer, unique=False)
+	council_address = db.Column(db.String(100), unique=False)
+	
+	def returnString(self):
+		return { 'city_id' : self.city_id,
+				'city_name' : self.city_name,
+				'country_name' : self.country_name,
+				'state_name' : self.state_name,
+				'email' : self.email,
+				'contact_number' : self.contact_number,
+				'council_address' : self.council_address
+		}
+		
+	def __repr__(self):
+		return '<city_profile_data %r>' % (self.city_name)
+
 class indicator_def(db.Model):
     __tablename__ = 'indicator_def'
     ind_id = db.Column(db.Integer, primary_key = True)

@@ -1,21 +1,28 @@
 from flask import render_template
 from app import app
 import json
-from flask import request, jsonify, session, escape
+from flask import request, jsonify, session, escape, Response
 from app import models, db 
 import hashlib
 
 users={'naveen':'password','hanwei':123456}
 
 @app.route('/')
-@app.route('/index')
+def default():
+	return ''
+
+@app.route('/login_test.html', methods=['GET'])
 def index():
+    return render_template("index.html")
+	
+@app.route('/login', methods=['GET'])
+def loginGet():
     if 'email' in session:
         return '{email:%s, login=true}' % escape(session['email'])
-    return render_template("index.html")
+    return 'false'
 
 @app.route('/login', methods=['POST'])
-def login():
+def loginPost():
 	email=request.form['email']
 	password=request.form['password']
 	
@@ -33,14 +40,22 @@ def login():
         '''return redirect(url_for('index'))
     return render_template("index.html")'''
 
+@app.route('/logout', methods=['GET'])
+def logout():
+	if 'email' in session:
+		session.pop('email', None)
+		return 'true'
+
+@app.route('/register_test.html')
+def registerTest():
+	return render_template("register_test.html")
+
 @app.route('/register', methods=['POST'])
-
 def register():
-	return render_template("register.html")
-
-@app.route('/saveDetails', methods=['POST'])
-
-def saveDetails():
+	email=request.form['email'].strip()
+	if not email:
+		return 'email is empty'
+		
 	user_name=request.form['user_name']
 	password=request.form['password']
 	hash = hashlib.sha256(password).hexdigest()
@@ -52,13 +67,21 @@ def saveDetails():
 	db.session.commit()	
 	db.session.close()
 
-	return user_name
+	return 'true'
+
+@app.route('/getCityList', methods=['GET'])
+def getCityList():
+	cityList = models.city_profile_data.query.all()
+	list = [i.returnString() for i in cityList]
+	return Response(json.dumps(list), mimetype='application/json')
 
 @app.route('/indicatorList', methods=['GET'])
 def indicatorList():
 	#indicators = models.indicator_def.query.get('1')
 	#return  jsonify(indicators.returnString())
 	Indicators = db.session.query(models.showIndicators)
+	
+	
 	Air_ind = Indicators.filter(models.showIndicators.cat_id == 1)
 	Water_ind = Indicators.filter(models.showIndicators.cat_id == 2)
 	Land_ind = Indicators.filter(models.showIndicators.cat_id == 3)
