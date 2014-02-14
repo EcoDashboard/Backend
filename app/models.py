@@ -5,15 +5,22 @@ from sqlalchemy.orm import column_property
 from app import db 
 
 class user_data(db.Model):
-    __tablename__ = 'user_data'
-    user_id = db.Column(db.Integer, primary_key = True)
-    user_name = db.Column(db.String(30), unique=False)
-    city_id_admin = db.Column(db.String(20), unique=False)
-    email = db.Column(db.String(100), unique=False)
-    password = db.Column(db.String(50), unique=False)
-
-    def __repr__(self):
-        return '<user_data %r>' % (self.user_name)
+	__tablename__ = 'user_data'
+	user_id = db.Column(db.Integer, primary_key = True)
+	user_name = db.Column(db.String(30), unique=False)
+	city_id_admin = db.Column(db.String(20), unique=False)
+	email = db.Column(db.String(100), unique=False)
+	password = db.Column(db.String(50), unique=False)
+    
+	def returnString(self):
+		return { 'user_id' : self.user_id,
+			'user_name' : self.user_name,
+			'city_id_admin' : self.city_id_admin,
+			'email' : self.email
+		}
+	
+	def __repr__(self):
+		return '<user_data %r>' % (self.user_name)
 
 class city_profile_data(db.Model):
 	__tablename__ = 'city_profile_data'

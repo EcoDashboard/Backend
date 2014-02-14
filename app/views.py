@@ -69,6 +69,17 @@ def register():
 
 	return 'true'
 
+@app.route('/getUserData')
+def getUserData():
+	if 'email' in session:
+		email=session['email'].strip()
+		userData = models.user_data.query.filter(models.user_data.email == email).all()
+		list = [i.returnString() for i in userData]
+		return Response(json.dumps(list[0]), mimetype='application/json')
+	else:
+		return 'false'
+	
+
 @app.route('/getCityList', methods=['GET'])
 def getCityList():
 	cityList = models.city_profile_data.query.all()
