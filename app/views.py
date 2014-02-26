@@ -60,12 +60,14 @@ def default():
 def index():
     return render_template("index.html")
 
-@app.route('/login', methods=['GET'])
-def loginGet():
-	print 'HELLO'
-    if 'email' in session:
-        return '{email:%s, login=true}' % escape(session['email'])
-    return 'false'
+# @app.route('/login', methods=['GET'])
+# def loginGet():
+
+# 	print 'HELLO'
+
+#     if 'email' in session:
+#         return '{email:%s, login=true}' % escape(session['email'])
+#     return 'false'
 
 @app.route('/login', methods=['POST'])
 def loginPost():
