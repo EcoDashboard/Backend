@@ -62,12 +62,14 @@ def index():
 
 @app.route('/login', methods=['GET'])
 def loginGet():
+	print 'HELLO'
     if 'email' in session:
         return '{email:%s, login=true}' % escape(session['email'])
     return 'false'
 
 @app.route('/login', methods=['POST'])
 def loginPost():
+	print 'HELLO2'
 	email=request.form['email']
 	password=request.form['password']
 
