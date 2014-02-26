@@ -15,19 +15,16 @@ auth = HTTPBasicAuth()
 
 users={'naveen':'password','hanwei':123456}
 
-def generate_auth_token(self, expiration = 600):
+def generate_auth_token(expiration = 600):
 	s = Serializer(app.config['SECRET_KEY'], expires_in = expiration)
 	return s.dumps({ 'id': g.user.user_id })
 
-@staticmethod
 def verify_auth_token(token):
     s = Serializer(app.config['SECRET_KEY'])
     try:
         data = s.loads(token)
-    except SignatureExpired:
+    except:
         return None # valid token, but expired
-    except BadSignature:
-        return None # invalid token
     user = models.user_data.query.filter(models.user_data.user_id == data['id']).all()
     return user[0]
 
@@ -36,18 +33,17 @@ def verify_password(username_or_token, password):
     # first try to authenticate by token
     user = verify_auth_token(username_or_token)
     if not user:
-        # try to authenticate with username/password
-        user = models.user_data.query.filter(models.user_data.user_id == data['id']).first()
-        if not user or not verify_password(password):
-            return False
-    g.user = user
-    return True
 
-@auth.verify_password
-def verify_password(username, password):
-    if len(userInDb) != 1:
-        return False
-    g.user = userInDB[0]
+        # try to authenticate with username/password
+        user = models.user_data.query.filter(models.user_data.user_name == username_or_token).first()
+
+        user2 = models.user_data.query.filter(\
+        		models.user_data.password == hashlib.sha256(password).hexdigest()\
+        		).all()
+
+        if not user or len(user2) != 1:
+            return False
+    g.user = user if user else user2
     return True
 
 @app.route('/api/token')
@@ -77,15 +73,13 @@ def loginPost():
 
 	userInDB = models.user_data.query.filter(models.user_data.email == email).filter(models.user_data.password == hashlib.sha256(password).hexdigest()).all()
 
-	rs = False
-
 	if len(userInDB) == 1:
-		rs = True
-		session['email'] = request.form['email']
+		g.user = userInDB[0]
+		token = generate_auth_token()
+		return token
 	else:
-		rs = False
+		return False
 
-	return rs
 
 @app.route('/logout', methods=['GET'])
 def logout():
