@@ -85,7 +85,7 @@ def loginPost():
 		token = generate_auth_token()
 		return jsonify({'token':token})
 	else:
-		return make_response("",False)
+		return make_response("",503)
 
 
 @app.route('/logout', methods=['GET'])
