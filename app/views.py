@@ -1,13 +1,60 @@
-from flask import render_template
 from app import app
-import json
-from flask import request, jsonify, session, escape, Response
 from app import models, db
+from flask import render_template
+from flask import request, jsonify, session, escape, Response, g
 from flask.ext.cors import cross_origin
-
+from flask.ext.httpauth import HTTPBasicAuth
+from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
 import hashlib
+import json
+
+auth = HTTPBasicAuth()
+
+
+
 
 users={'naveen':'password','hanwei':123456}
+
+def generate_auth_token(self, expiration = 600):
+	s = Serializer(app.config['SECRET_KEY'], expires_in = expiration)
+	return s.dumps({ 'id': g.user.user_id })
+
+@staticmethod
+def verify_auth_token(token):
+    s = Serializer(app.config['SECRET_KEY'])
+    try:
+        data = s.loads(token)
+    except SignatureExpired:
+        return None # valid token, but expired
+    except BadSignature:
+        return None # invalid token
+    user = models.user_data.query.filter(models.user_data.user_id == data['id']).all()
+    return user[0]
+
+@auth.verify_password
+def verify_password(username_or_token, password):
+    # first try to authenticate by token
+    user = verify_auth_token(username_or_token)
+    if not user:
+        # try to authenticate with username/password
+        user = models.user_data.query.filter(models.user_data.user_id == data['id']).first()
+        if not user or not verify_password(password):
+            return False
+    g.user = user
+    return True
+
+@auth.verify_password
+def verify_password(username, password):
+    if len(userInDb) != 1:
+        return False
+    g.user = userInDB[0]
+    return True
+
+@app.route('/api/token')
+@auth.login_required
+def get_auth_token():
+    token = generate_auth_token()
+    return jsonify({ 'token': token.decode('ascii') })
 
 @app.route('/')
 def default():
@@ -38,9 +85,7 @@ def loginPost():
 	else:
 		rs = False
 
-	return str(rs)
-        '''return redirect(url_for('index'))
-    return render_template("index.html")'''
+	return rs
 
 @app.route('/logout', methods=['GET'])
 def logout():
@@ -73,6 +118,7 @@ def register():
 	return 'true'
 
 @app.route('/getUserData')
+@auth.login_required
 def getUserData():
 	if 'email' in session:
 		email=session['email'].strip()
