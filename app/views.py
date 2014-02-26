@@ -76,12 +76,14 @@ def loginPost():
 	email=request.form['email']
 	password=request.form['password']
 
-	userInDB = models.user_data.query.filter(models.user_data.email == email).filter(models.user_data.password == hashlib.sha256(password).hexdigest()).all()
+	user = models.user_data.query.filter(models.user_data.email == email)\
+		.filter(models.user_data.password == hashlib.sha256(password).hexdigest())\
+		.first()
 
-	print userInDB
+	print user
 
-	if len(userInDB) == 1:
-		g.user = userInDB[0]
+	if user:
+		g.user = user
 		token = generate_auth_token()
 		return jsonify({'token':token})
 	else:
