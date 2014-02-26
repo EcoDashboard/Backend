@@ -1,7 +1,7 @@
 from app import app
 from app import models, db
 from flask import render_template
-from flask import request, jsonify, session, escape, Response, g
+from flask import request, jsonify, session, escape, Response, g, make_response
 from flask.ext.cors import cross_origin
 from flask.ext.httpauth import HTTPBasicAuth
 from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
@@ -72,17 +72,20 @@ def index():
 @app.route('/login', methods=['POST'])
 def loginPost():
 	print 'HELLO2'
+	print request.form
 	email=request.form['email']
 	password=request.form['password']
 
 	userInDB = models.user_data.query.filter(models.user_data.email == email).filter(models.user_data.password == hashlib.sha256(password).hexdigest()).all()
+
+	print userInDB
 
 	if len(userInDB) == 1:
 		g.user = userInDB[0]
 		token = generate_auth_token()
 		return token
 	else:
-		return False
+		return make_response("",False)
 
 
 @app.route('/logout', methods=['GET'])
