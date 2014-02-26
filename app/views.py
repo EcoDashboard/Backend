@@ -83,7 +83,7 @@ def loginPost():
 	if len(userInDB) == 1:
 		g.user = userInDB[0]
 		token = generate_auth_token()
-		return token
+		return jsonify({'token':token})
 	else:
 		return make_response("",False)
 
