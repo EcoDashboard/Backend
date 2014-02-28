@@ -7,6 +7,7 @@ from flask.ext.httpauth import HTTPBasicAuth
 from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
 import hashlib
 import json
+import urllib
 
 auth = HTTPBasicAuth()
 
@@ -73,7 +74,7 @@ def index():
 def loginPost():
 	print 'HELLO2'
 	print request.form
-	email=request.form['email']
+	email=urllib.unquote(request.form['email'])
 	password=request.form['password']
 
 	user = models.user_data.query.filter(models.user_data.email == email)\
@@ -111,7 +112,7 @@ def register():
 	password=request.form['password']
 	hash = hashlib.sha256(password).hexdigest()
 	city_id_admin = request.form['city_id_admin']
-	email=request.form['email']
+	email=urllib.unquote(request.form['email'])
 
 	u = models.user_data(user_name=user_name, password=hash, city_id_admin=city_id_admin, email=email)
 	db.session.add(u)
