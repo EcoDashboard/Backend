@@ -17,7 +17,7 @@ class user_data(db.Model):
 		return { 'user_id' : self.user_id,
 			'first_name' : self.first_name,
 			'last_name': self.last_name,
-			'city_id_admin' : self.city_id_admin,
+			'city_id_admin' : int(self.city_id_admin),
 			'email' : self.email
 		}
 	
@@ -76,28 +76,31 @@ showUsers_join = user_def_join.join(city_def_join)
 Base = declarative_base()
 
 class showUsers(Base):
-    __table__ = showUsers_join
-    user_id = user_def_join.c.user_id
-    first_name = user_def_join.c.first_name
-    last_name = user_def_join.c.last_name
-    email = user_def_join.c.email
-    city_id_admin = user_def_join.c.city_id_admin
-    city_name = city_def_join.c.city_name
-    country = city_def_join.c.country
-    state = city_def_join.c.state
-    post_code = city_def_join.c.post_code
+	__table__ = showUsers_join
+	user_id = user_def_join.c.user_id
+	first_name = user_def_join.c.first_name
+	last_name = user_def_join.c.last_name
+	email = user_def_join.c.email
+	city_id_admin = user_def_join.c.city_id_admin
+	city_name = city_def_join.c.city_name
+	country = city_def_join.c.country
+	state = city_def_join.c.state
+	post_code = city_def_join.c.post_code
 
-    def returnString(self):
-    	return { 'user_id' : self.user_id,
-		'first_name' : self.first_name,
-	        'last_name' : self.last_name,
-	        'email' : self.email,
-	        'city_id_admin' : self.city_id_admin,
-	        'city_name' : self.name,
-	        'country' : self.country,
-	        'state' : self.state,
-	        'post_code' : self.post_code
-		}
+	def returnString(self):
+		return { 'user_id' : self.user_id,
+			'first_name' : self.first_name,
+			'last_name' : self.last_name,
+			'email' : self.email,
+			'city_id_admin' : int(self.city_id_admin),
+			'city_name' : self.name,
+			'country' : self.country,
+			'state' : self.state,
+			'post_code' : self.post_code
+			}
+		
+	def __repr__(self):
+		return '<city_profile_data %r>' % (self.city_name)
 
 class indicator_def(db.Model):
     __tablename__ = 'indicator_def'
