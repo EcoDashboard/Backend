@@ -54,8 +54,50 @@ class city_profile_data(db.Model):
 	def __repr__(self):
 		return '<city_profile_data %r>' % (self.city_name)
 
-	
+metadata = MetaData()
 
+user_def_join = Table('user_def', metadata,
+	Column('user_id', Integer, primary_key=True),
+        Column('first_name', String),
+        Column('last_name', String),
+	Column('email', String),
+	Column('city_id_admin', Integer, ForeignKey('city_def.city_id'))
+        )
+
+city_def_join = Table('city_def', metadata,
+	Column('city_id', Integer, primary_key=True),
+	Column('city_name', String),
+	Column('country', String),
+	Column('state', String),
+	Column('post_code', String)
+	)
+	
+showUsers_join = user_def_join.join(city_def_join)
+Base = declarative_base()
+
+class showUsers(Base):
+    __table__ = showUsers_join
+    user_id = user_def_join.c.user_id
+    first_name = user_def_join.c.first_name
+    last_name = user_def_join.c.last_name
+    email = user_def_join.c.email
+    city_id_admin = user_def_join.c.city_id_admin
+    city_name = city_def_join.c.city_name
+    country = city_def_join.c.country
+    state = city_def_join.c.state
+    post_code = city_def_join.c.post_code
+
+    def returnString(self):
+    	return { 'user_id' : self.user_id,
+		'first_name' : self.first_name,
+	        'last_name' : self.last_name,
+	        'email' : self.email,
+	        'city_id_admin' : self.city_id_admin,
+	        'city_name' : self.name,
+	        'country' : self.country,
+	        'state' : self.state,
+	        'post_code' : self.post_code
+		}
 
 class indicator_def(db.Model):
     __tablename__ = 'indicator_def'
@@ -83,8 +125,6 @@ class category_def(db.Model):
     def __repr__(self):
         return '<category_def %r>' % (self.cat_id)
 
-metadata = MetaData()
-
 indicator_def_join = Table('indicator_def', metadata,
 	Column('ind_id', Integer, primary_key=True),
         Column('ind_name', String),
@@ -105,7 +145,6 @@ category_def_join = Table( 'category_def', metadata,
 	)
 
 showIndcator_join = indicator_def_join.join(category_def_join)
-Base = declarative_base()
 
 class showIndicators(Base):
     __table__ = showIndcator_join
