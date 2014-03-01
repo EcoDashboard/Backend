@@ -181,6 +181,12 @@ def getCityList():
 	cityList = models.city_profile_data.query.all()
 	list = [i.returnString() for i in cityList]
 	return Response(json.dumps(list), mimetype='application/json')
+	
+@app.route('/getUserInfo', methods=['GET'])
+def getUserInfo():
+	userInfo = models.showUsers.query.all()
+	list = [i.returnString() for i in cityList]
+	return Response(json.dumps(list), mimetype='application/json')
 
 @app.route('/indicatorList', methods=['GET'])
 def indicatorList():
