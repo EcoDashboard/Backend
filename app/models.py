@@ -1,5 +1,5 @@
 from sqlalchemy import Table, Column, Integer, \
-        String, MetaData, join, ForeignKey
+        String, MetaData, join, ForeignKey,func
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import column_property
 from app import db 
@@ -7,43 +7,55 @@ from app import db
 class user_data(db.Model):
 	__tablename__ = 'user_data'
 	user_id = db.Column(db.Integer, primary_key = True)
-	user_name = db.Column(db.String(30), unique=False)
+	first_name = db.Column(db.String(30), unique=False)
+	last_name = db.Column(db.String(30), unique=False)
 	city_id_admin = db.Column(db.String(20), unique=False)
 	email = db.Column(db.String(100), unique=False)
 	password = db.Column(db.String(50), unique=False)
     
 	def returnString(self):
 		return { 'user_id' : self.user_id,
-			'user_name' : self.user_name,
+			'first_name' : self.first_name,
+			'last_name': self.last_name,
 			'city_id_admin' : self.city_id_admin,
 			'email' : self.email
 		}
 	
 	def __repr__(self):
-		return '<user_data %r>' % (self.user_name)
+		return '<user_data %r>' % (self.user_id)
 
 class city_profile_data(db.Model):
 	__tablename__ = 'city_profile_data'
 	city_id = db.Column(db.String(30), primary_key=True)
 	city_name = db.Column(db.String(30), unique=False)
-	country_name = db.Column(db.String(30), unique=False)
-	state_name = db.Column(db.String(30), unique=False)
-	email = db.Column(db.String(100), unique=False)
-	contact_number = db.Column(db.Integer, unique=False)
-	council_address = db.Column(db.String(100), unique=False)
+	country = db.Column(db.String(30), unique=False)
+	state = db.Column(db.String(30), unique=False)
 	
+	post_code =  db.Column(db.String(10), unique=False)
+	population =  db.Column(db.Integer, unique=False)
+	area =  db.Column(db.Float, unique=False)
+	council_name = db.Column(db.String(30), unique=False)
+	contact_email = db.Column(db.String(100), unique=False)
+	contact_number = db.Column(db.String(20), unique=False)
+	council_address = db.Column(db.String(100), unique=False)
+	#contact_lastname = db.Column(db.String(30), unique=False)
+	#contact_firstname = db.Column(db.String(30), unique=False)
+
 	def returnString(self):
 		return { 'city_id' : self.city_id,
-				'city_name' : self.city_name,
-				'country_name' : self.country_name,
-				'state_name' : self.state_name,
-				'email' : self.email,
-				'contact_number' : self.contact_number,
-				'council_address' : self.council_address
+			'city_name' : self.city_name,
+			'country' : self.country,
+			'state' : self.state,
+			'email' : self.email,
+			'contact_number' : self.contact_number,
+			'council_address' : self.council_address
 		}
 		
 	def __repr__(self):
 		return '<city_profile_data %r>' % (self.city_name)
+
+	
+
 
 class indicator_def(db.Model):
     __tablename__ = 'indicator_def'
