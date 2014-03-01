@@ -9,7 +9,7 @@ class user_data(db.Model):
 	user_id = db.Column(db.Integer, primary_key = True)
 	first_name = db.Column(db.String(30), unique=False)
 	last_name = db.Column(db.String(30), unique=False)
-	city_id_admin = db.Column(db.String(20), unique=False)
+	city_id_admin = db.Column(db.String(20), unique=False, db.ForeignKey('city_profile_data.city_id'))
 	email = db.Column(db.String(100), unique=False)
 	password = db.Column(db.String(50), unique=False)
     
@@ -46,7 +46,7 @@ class city_profile_data(db.Model):
 			'city_name' : self.city_name,
 			'country' : self.country,
 			'state' : self.state,
-			'email' : self.email,
+			'contact_email' : self.contact_email,
 			'contact_number' : self.contact_number,
 			'council_address' : self.council_address
 		}
