@@ -93,13 +93,13 @@ def registerTest():
 	return render_template("register_test.html")
 
 
-@app.route('/chechCityIdExists')
-def chechCityIdExists():
+@app.route('/checkCityIdExists')
+def checkCityIdExists():
 	city_id = request.values.get("city_id");
-	return str(chechCityIdExists(city_id))
+	return str(checkCityIdExists(city_id))
 		
 
-def chechCityIdExists(city_id):
+def checkCityIdExists(city_id):
 	if not city_id:
 		return True
 	elif models.city_profile_data.query.filter(models.city_profile_data.city_id == city_id).first():
@@ -141,7 +141,7 @@ def register():
 	
 	if not city_id:
 		errors.append('City abbreviation is empty.')
-	elif chechCityIdExists(city_id):
+	elif checkCityIdExists(city_id):
 		errors.append('City Alias has already been used.')
 
 	if not re.match("^[0-9]*[.]?[0-9]+$", area):
