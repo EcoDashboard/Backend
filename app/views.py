@@ -175,18 +175,22 @@ def getUserData():
 	else:
 		return 'false'
 
-
-@app.route('/getCityList', methods=['GET'])
-def getCityList():
-	cityList = models.city_profile_data.query.all()
-	list = [i.returnString() for i in cityList]
-	return Response(json.dumps(list), mimetype='application/json')
 	
-@app.route('/getUserInfo', methods=['GET'])
-def getUserInfo():
-	userInfo = models.showUsers.query.all()
-	list = [i.returnString() for i in userInfo]
-	return Response(json.dumps(list), mimetype='application/json')
+@app.route('/getCityProfile')
+def getCityProfile():
+	city_id = request.values.get("city")
+	if city_id:
+		city_id = city_id.strip()
+		profiles = db.session\
+			.query(models.showUsers)\
+			.filter(models.showUsers.city_id == city_id)\
+			.all()
+		list = [i.returnString() for i in profiles]
+		return Response(json.dumps(list[0]), mimetype='application/json')
+	else:
+		profiles = db.session.query(models.showUsers).all()
+		list = [i.returnString() for i in profiles]
+		return Response(json.dumps(list), mimetype='application/json')
 
 @app.route('/indicatorList', methods=['GET'])
 def indicatorList():

@@ -9,7 +9,7 @@ class user_data(db.Model):
 	user_id = db.Column(db.Integer, primary_key = True)
 	first_name = db.Column(db.String(30), unique=False)
 	last_name = db.Column(db.String(30), unique=False)
-	city_id_admin = db.Column(db.String(20))
+	city_id_admin = db.Column(db.String(20), db.ForeignKey('city_profile_data.city_id'))
 	email = db.Column(db.String(100), unique=False)
 	password = db.Column(db.String(50), unique=False)
     
@@ -56,47 +56,64 @@ class city_profile_data(db.Model):
 
 metadata = MetaData()
 
-user_def_join = Table('user_def', metadata,
+user_def_join = Table('user_data', metadata,
 	Column('user_id', Integer, primary_key=True),
         Column('first_name', String),
         Column('last_name', String),
 	Column('email', String),
-	Column('city_id_admin', Integer, ForeignKey('city_def.city_id'))
+	Column('city_id_admin', String, ForeignKey('city_profile_data.city_id'))
         )
 
-city_def_join = Table('city_def', metadata,
-	Column('city_id', Integer, primary_key=True),
+city_profile_data_join = Table('city_profile_data', metadata,
+	Column('city_id', String, primary_key=True),
 	Column('city_name', String),
 	Column('country', String),
 	Column('state', String),
-	Column('post_code', String)
+	Column('post_code', String),
+	Column('population', Integer), 
+	Column('area', db.Float),
+	Column('council_name', String),
+	Column('contact_email', String), 
+	Column('contact_number', String), 
+	Column('council_address', String)
 	)
 	
-showUsers_join = user_def_join.join(city_def_join)
+showUsers_join = user_def_join.join(city_profile_data_join)
 Base = declarative_base()
 
 class showUsers(Base):
 	__table__ = showUsers_join
-	user_id = user_def_join.c.user_id
 	first_name = user_def_join.c.first_name
 	last_name = user_def_join.c.last_name
 	email = user_def_join.c.email
-	city_id_admin = user_def_join.c.city_id_admin
-	city_name = city_def_join.c.city_name
-	country = city_def_join.c.country
-	state = city_def_join.c.state
-	post_code = city_def_join.c.post_code
+	city_id = city_profile_data_join.c.city_id
+	city_name = city_profile_data_join.c.city_name
+	country = city_profile_data_join.c.country
+	state = city_profile_data_join.c.state
+	post_code = city_profile_data_join.c.post_code
+	population = city_profile_data_join.c.population
+	area = city_profile_data_join.c.area
+	council_name = city_profile_data_join.c.council_name
+	contact_email = city_profile_data_join.c.contact_email
+	contact_number = city_profile_data_join.c.contact_number
+	council_address = city_profile_data_join.c.council_address
 
 	def returnString(self):
-		return { 'user_id' : self.user_id,
+		return { 
 			'first_name' : self.first_name,
-			'last_name' : self.last_name,
-			'email' : self.email,
-			'city_id_admin' : int(self.city_id_admin),
-			'city_name' : self.name,
+			'last_name': self.last_name,
+			'email': self.email,
+			'city_id' : self.city_id,
+			'city_name' : self.city_name,
 			'country' : self.country,
 			'state' : self.state,
-			'post_code' : self.post_code
+			'post_code' : self.post_code,
+			'population' : self.population,
+			'area' : self.area,
+			'council_name' : self.council_name,
+			'contact_email' : self.contact_email,
+			'contact_number' : self.contact_number,
+			'council_address' : self.council_address
 			}
 		
 	def __repr__(self):
