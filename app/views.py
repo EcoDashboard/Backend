@@ -74,12 +74,14 @@ def loginPost():
 
     #Stripping path onwards from url for redirect
     u = urlparse(request.url)[:2] + ('/dashboard.html#','', '', '')
+    u = urlunparse(u)
 
     if user:
         g.user = user
         token = generate_auth_token()
         jsonify({'token':token})
-        return redirect(u)
+        print u
+        return redirect(u, code="302")
     else:
         return make_response("Cannot find user",401)
 
