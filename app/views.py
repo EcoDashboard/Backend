@@ -33,13 +33,13 @@ def crossdomain(origin=None, methods=None, headers=None,
         if methods is not None:
             return methods
 
-        options_resp = current_app.make_default_options_response()
+        options_resp = app.make_default_options_response()
         return options_resp.headers['allow']
 
     def decorator(f):
         def wrapped_function(*args, **kwargs):
             if automatic_options and request.method == 'OPTIONS':
-                resp = current_app.make_default_options_response()
+                resp = app.make_default_options_response()
             else:
                 resp = make_response(f(*args, **kwargs))
             if not attach_to_all and request.method != 'OPTIONS':
