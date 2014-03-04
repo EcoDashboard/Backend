@@ -13,9 +13,6 @@ import re
 import urllib
 
 
-auth = HTTPBasicAuth()
-
-
 def generate_auth_token(expiration = 600):
     s = Serializer(app.config['SECRET_KEY'], expires_in = expiration)
     return s.dumps({ 'id': g.user.user_id })
@@ -53,16 +50,16 @@ def get_auth_token():
     token = generate_auth_token()
     return jsonify({ 'token': token.decode('ascii') })
 
-@app.route('/')
-def default():
-    return ''
+# @app.route('/')
+# def default():
+#     return ''
 
 @app.route('/login_test.html', methods=['GET'])
 def index():
     return render_template("index.html")
 
 @app.route('/login', methods=['POST'])
-@cross_origin()
+@cross_origin(origins="*")
 def loginPost():
 
     email=urllib.unquote(request.form['email'])
@@ -91,6 +88,7 @@ def loginPost():
 
 
 @app.route('/logout', methods=['GET'])
+@cross_origin(origins="*")
 def logout():
     if 'email' in session:
         session.pop('email', None)
@@ -117,7 +115,7 @@ def checkCityIdExists(city_id):
 
 
 @app.route('/register', methods=['POST'])
-@cross_origin()
+@cross_origin(origins="*")
 def register():
 
     # print request.form
@@ -205,8 +203,8 @@ def register():
     return 'true'
 
 @app.route('/getUserData')
-@cross_origin()
-@auth.login_required
+@cross_origin(origins="*")
+# @auth.login_required
 def getUserData():
     if 'email' in session:
         email=session['email'].strip()
@@ -218,7 +216,7 @@ def getUserData():
 
 
 @app.route('/getCityProfile')
-@cross_origin()
+@cross_origin(origins="*")
 def getCityProfile():
     city_id = request.values.get("city")
     if city_id:
