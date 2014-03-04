@@ -62,6 +62,7 @@ def index():
     return render_template("index.html")
 
 @app.route('/login', methods=['POST'])
+@cross_origin()
 def loginPost():
 
     email=urllib.unquote(request.form['email'])
@@ -204,6 +205,7 @@ def register():
     return 'true'
 
 @app.route('/getUserData')
+@cross_origin()
 @auth.login_required
 def getUserData():
     if 'email' in session:
@@ -216,6 +218,7 @@ def getUserData():
 
 
 @app.route('/getCityProfile')
+@cross_origin()
 def getCityProfile():
     city_id = request.values.get("city")
     if city_id:
