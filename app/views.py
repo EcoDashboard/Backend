@@ -73,6 +73,7 @@ def loginPost():
         .first()
 
     #Stripping path onwards from url for redirect
+    print request.url
     u = urlparse(request.url)[:2] + ('/dashboard.html#','', '', '')
     u = urlunparse(u)
 
