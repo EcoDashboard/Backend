@@ -74,6 +74,8 @@ def loginPost():
 
     #Stripping path onwards from url for redirect
     print request.url
+    print "URLROOT: " + request.url_root + "dashboard.html"
+    print
     u = urlparse(request.url)[:2] + ('/dashboard.html#','', '', '')
     u = urlunparse(u)
 
