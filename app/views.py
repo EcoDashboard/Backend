@@ -104,7 +104,7 @@ def index():
     return render_template("index.html")
 
 @app.route('/login', methods=['POST', 'OPTIONS'])
-@crossdomain(origin='*')
+@crossdomain(origin='*', headers='Content-Type')
 def loginPost():
 
     email=urllib.unquote(request.form['email'])
@@ -118,15 +118,15 @@ def loginPost():
     if user:
         g.user = user
         token = generate_auth_token()
-        res = jsonify({'token':token})
-        res.headers['Access-Control-Allow-Origin'] = '*'
-        return res
+
+
+        return jsonify({'token':token})
     else:
         return make_response("Cannot find user",401)
 
 
 @app.route('/logout', methods=['GET'])
-@cross_origin(origins="*")
+@crossdomain(origin='*', headers='Content-Type')
 def logout():
     if 'email' in session:
         session.pop('email', None)
@@ -153,7 +153,7 @@ def checkCityIdExists(city_id):
 
 
 @app.route('/register', methods=['POST'])
-@crossdomain(origin='*')
+@crossdomain(origin='*', headers='Content-Type')
 def register():
 
     # print request.form
@@ -254,7 +254,7 @@ def getUserData():
 
 
 @app.route('/getCityProfile')
-@crossdomain(origin='*')
+@crossdomain(origin='*', headers='Content-Type')
 def getCityProfile():
     city_id = request.values.get("city")
     if city_id:
