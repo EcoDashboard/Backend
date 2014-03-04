@@ -103,7 +103,7 @@ def get_auth_token():
 def index():
     return render_template("index.html")
 
-@app.route('/login', methods=['POST'])
+@app.route('/login', methods=['POST', 'OPTIONS'])
 @crossdomain(origin='*')
 def loginPost():
 
@@ -115,19 +115,12 @@ def loginPost():
         .filter(models.user_data.password == hashlib.sha256(password).hexdigest())\
         .first()
 
-    #Stripping path onwards from url for redirect
-    print request.url
-    print "URLROOT: " + request.url_root + "dashboard.html"
-    print
-    u = urlparse(request.url)[:2] + ('/dashboard.html#','', '', '')
-    u = urlunparse(u)
-
     if user:
         g.user = user
         token = generate_auth_token()
-        jsonify({'token':token})
-        print u
-        return redirect(u, code="302")
+        res = jsonify({'token':token})
+        res.headers['Access-Control-Allow-Origin'] = '*'
+        return res
     else:
         return make_response("Cannot find user",401)
 
