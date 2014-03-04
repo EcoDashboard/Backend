@@ -104,12 +104,11 @@ def index():
     return render_template("index.html")
 
 @app.route('/login', methods=['POST', 'OPTIONS'])
-@crossdomain(origin='*', headers='Content-Type')
+@crossdomain(origin=['*'], headers='Content-Type')
 def loginPost():
 
     email=urllib.unquote(request.form['email'])
     password=request.form['password']
-
 
     user = models.user_data.query.filter(models.user_data.email == email)\
         .filter(models.user_data.password == hashlib.sha256(password).hexdigest())\
@@ -118,7 +117,6 @@ def loginPost():
     if user:
         g.user = user
         token = generate_auth_token()
-
 
         return jsonify({'token':token})
     else:
