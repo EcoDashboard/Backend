@@ -104,7 +104,7 @@ def index():
     return render_template("index.html")
 
 @app.route('/login', methods=['POST', 'OPTIONS'])
-@crossdomain(origin=['*'], headers='Content-Type')
+@crossdomain(origin='*', headers=['Content-Type'])
 def loginPost():
 
     email=urllib.unquote(request.form['email'])
