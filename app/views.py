@@ -287,6 +287,7 @@ def indicatorList():
              Bio_Diversity = [i.returnString() for i in Bio_Diversity_ind])
 
 @app.route('/saveScore', methods=['POST','GET'])
+@crossdomain(origin='*', headers='Content-Type')
 def saveScore():
 	post = request.json
     #post = '{ "cat_ID" : 1 , "Indicators" : [ {"ind_01" : 100}, {"ind_02" : 120}, {"ind_03" : 140}, {"ind_04" : 160}, {"ind_05" : 180}, {"ind_06" : 200}, {"ind_07" : 230} ] }'
@@ -295,6 +296,5 @@ def saveScore():
 	#if decoded["cat_ID"] == 1:
 	#	score += decoded["Indicators"][0]["ind_01"]
 	#	score += decoded["Indicators"][1]["ind_02"]
-	#value = str(score)
-	return "successful"
-
+	value = str(score)
+	return value
