@@ -2,6 +2,7 @@ from app import app
 from app import models, db
 from flask import render_template
 from flask import request, jsonify, session, escape, Response, g, make_response, redirect
+from flask.ext.assets import Environment, Bundle
 from flask.ext.cors import cross_origin
 from flask.ext.httpauth import HTTPBasicAuth
 from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
@@ -14,6 +15,14 @@ import hashlib
 import json
 import re
 import urllib
+
+
+#Handling SCSS/SASS files
+assets = Environment(app)
+assets.url = app.static_url_path
+scss = Bundle('styles/eco.scss', 'styles/main.scss', 'styles/dashboard.scss', filters='pyscss', output='all.css')
+assets.register('scss_all', scss)
+
 
 auth = HTTPBasicAuth()
 
@@ -95,9 +104,19 @@ def get_auth_token():
     token = generate_auth_token()
     return jsonify({ 'token': token.decode('ascii') })
 
-# @app.route('/')
-# def default():
-#     return ''
+
+# THESE ARE THE ROUTES FOR HTML PAGES
+
+@app.route('/')
+def home():
+    return render_template('index.html')
+
+@app.route('/login')
+def login():
+    return render_template('login.html')
+
+
+# THESE ARE THE ROUTES FOR THE API
 
 @app.route('/login_test.html', methods=['GET'])
 def index():

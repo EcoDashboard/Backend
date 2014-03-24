@@ -1,30 +1,85 @@
 
-<html>
-<head>
-	<title>microblog</title>
-</head>
+   {% extends "layout.html" %}
 
-<script>
-function register() {
-    var frm = document.getElementById("login");
-    frm.action = '/register_test.html';
-    return true;
-}
-</script>
+   {% block body %}
 
-<body>
-	<hr>
-   <h1> Hello there , This is the Login Page</h1>
-   	<hr>
-<form action="/login" method="POST" name="login"id="login" >
-   	EMAIL <input type="text" name="email">
-   	<br>
-   	<br>
-   	PASSWORD <input type="password" name="password">
-   	<br>
-   	<br>
-   	<input type="submit" value="Sign In">
-      <input type="submit" value="Register" onclick="register()">
-</form>
-</body>
-</html>
+    <nav class="navbar navbar-fixed-top navbar-inverse" role="navigation">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#/">EcoDashboard</a>
+        </div>
+        <div class="collapse navbar-collapse navbar-ex1-collapse">
+          <ul class="nav navbar-nav">
+            <li><a href="dashboard-index.html">Dashboard</a></li>
+            <li><a href="/about-us">About Us</a></li>
+            <li><a href="/how-it-works">How It Works</a></li>
+            <li class="dropdown alerts-dropdown">
+              <a class="dropdown-toggle" data-toggle="dropdown">Check The City<b class="caret"></b></a>
+              <ul class="dropdown-menu">
+                <li><a href="/city/206">Seattle, USA</a></li>
+                <li class="divider"></li>
+                <li><a href="#">View All</a></li>
+              </ul>
+            </li>
+            <li><a href="/login">Login</a></li>
+          </ul>
+        </div><!-- /.navbar-collapse -->
+      </div><!-- /.container -->
+    </nav>
+
+    <div class="full static-container" style="display:none">
+        <div class="background-video">
+          <video loop src="{{ url_for('static', filename='beach2.mp4') }}" type="video/mp4" poster="{{ url_for('static', filename='images/beach-placeholder.png') }}" preload="auto" autoplay="true"></video>
+        </div>
+      </div>
+
+      <div class="container">
+        <div class="row">
+          <div class="title col-lg-12 col-sm-12">
+            <h1>The EcoDashboard Project</h1>
+            <div class="row" id="home-icons">
+              <div class="col-xs-2">
+              <i class="fa fa-cloud"></i>
+            </div>
+            <div class="col-xs-2">
+              <i class="fa fa-tint"></i>
+        </div>
+        <div class="col-xs-2">
+              <i class="fa fa-leaf"></i>
+        </div>
+        <div class="col-xs-2">
+              <i class="fa fa-trash-o"></i>
+        </div>
+        <div class="col-xs-2">
+              <i class="fa fa-bolt"></i>
+        </div>
+        </div>
+          </div>
+        </div>
+      </div>
+  </div>
+
+  <script>
+    $(window).ready(function(){
+      console.log("yup");
+      $('div.full').fadeIn(4000);
+    });
+  </script>
+
+        <!-- // <script src="scripts/tc-angular-charts.js"></script> -->
+
+<!-- <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.3/angular-animate.min.js"></script>
+<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.3/angular-route.min.js"></script>
+<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.3/angular.min.js"></script> -->
+<script src="{{ url_for('static', filename='scripts/charts.js') }}"></script>
+<script src="{{ url_for('static', filename='scripts/scripts/eco.js') }}"></script>
+<script src="{{ url_for('static', filename='scripts/bootstrap.min.js') }}"></script>
+<script src="{{ url_for('static', filename='scripts/modernizr.js') }}"></script>
+
+{% endblock %}
