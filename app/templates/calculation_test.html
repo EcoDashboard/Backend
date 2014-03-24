@@ -1,0 +1,80 @@
+<html>
+	<head>
+		<title>Calculation</title>
+	</head>
+	<body>
+<script>
+//document.getElementById("btn_submit").addEventListener("click", function() {
+function saveScore(){
+	var form = document.getElementById("form_input");
+	var array = new Array();
+	var upperLimit = [300, 374, 500, 600, 2000, 40, 50];
+
+	for (var i = 0; i < form.length - 1; i++) {
+		var value = form.elements[i].value;
+
+		if (value > 0 && value <= upperLimit[i] && value != null) {
+			var ind = "ind_" + i;
+			array[i] = {
+				ind : value
+			};
+		} else {
+			alert("Wrong Input Number.");
+			return;
+		}
+	}
+
+	var result = {
+		"cat_ID" : "1",
+		"indicators" : array
+	};
+
+	var JSONresult = JSON.stringify(result);
+
+	var req = new XMLHttpRequest();
+	req.open("POST", "saveScore", false);
+	req.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
+	req.send(JSONresult);
+
+	if (req.status == 200) {
+		alert(req.responseText);
+	} else {
+		alert("Error executing XMLHttpRequest call!");
+	}
+}
+</script>
+		<div align="center">
+			<h1>DATA SUBMIT PAGE</h1>
+		</div>
+
+		<form align="center" name="DataInput" id="form_input" >
+			<br>
+			<b>Air Indicators</b>
+			<br>
+			<br>
+			ind_01
+			<input type="number" name="ind_01">
+			<br>
+			ind_02
+			<input type="number" name="ind_02">
+			<br>
+			ind_03
+			<input type="number" name="ind_03">
+			<br>
+			ind_04
+			<input type="number" name="ind_04">
+			<br>
+			ind_05
+			<input type="number" name="ind_05">
+			<br>
+			ind_06
+			<input type="number" name="ind_06">
+			<br>
+			ind_07
+			<input type="number" name="ind_07">
+			<br>
+			<br>
+			<input id="btn_submit" type="button" name="submit button" value="Submit" onClick="saveScore()">
+		</form>
+	</body>
+</html>
