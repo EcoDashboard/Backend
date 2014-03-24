@@ -305,6 +305,10 @@ def indicatorList():
              Energy = [i.returnString() for i in Energy_ind],
              Bio_Diversity = [i.returnString() for i in Bio_Diversity_ind])
 
+@app.route('/calculation_test.html')
+def registerTest():
+    return render_template("calculation_test.html")
+
 @app.route('/saveScore', methods=['POST','GET'])
 @crossdomain(origin='*', headers='Content-Type')
 def saveScore():
