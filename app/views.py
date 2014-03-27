@@ -299,7 +299,7 @@ def saveScore():
 	for element in values:
 		ind_ID = int(element["ind"][4:])+1
 		ind_value = int(element["value"])
-		ind_weight = query.get(ind_ID).weight
+		ind_weight = query.get(ind_ID).weight/100
 		print ind_weight
 		score += ind_weight * cat_weight * ind_value
 	return str(score)
