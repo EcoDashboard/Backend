@@ -7,6 +7,7 @@
 //document.getElementById("btn_submit").addEventListener("click", function() {
 function saveScore(){
 	var form = document.getElementById("form_input");
+	var element = new Array();
 	var array = new Array();
 	var upperLimit = [300, 374, 500, 600, 2000, 40, 50];
 
@@ -14,10 +15,10 @@ function saveScore(){
 		var value = form.elements[i].value;
 
 		if (value > 0 && value <= upperLimit[i] && value != null) {
+			
 			var ind = "ind_" + i;
-			array[i] = {
-				ind : value
-			};
+			element = { "ind" : ind , "value" : value}
+			array[i] = element;
 		} else {
 			alert("Wrong Input Number.");
 			return;
@@ -35,7 +36,7 @@ function saveScore(){
 	req.open("POST", "saveScore", false);
 	req.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
 	req.send(JSONresult);
-
+	alert(JSONresult);
 	if (req.status == 200) {
 		alert(req.responseText);
 	} else {

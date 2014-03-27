@@ -11,7 +11,6 @@ class city_score_data(db.Model):
 	cat_id = db.Column(db.Integer, unique=False)
 	score = db.Column(db.Integer, unique=False)
 	data_year = db.Column(db.Integer, unique=False)
-	data_year = db.Column(db.Integer, unique=False)
 
 	def returnString(self):
 		return { 'score_id' : self.score_id,
@@ -24,4 +23,3 @@ class city_score_data(db.Model):
 	
 	def __repr__(self):
 		return '<city_score_data %r>' % (self.score_id)
-
