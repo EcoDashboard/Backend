@@ -319,6 +319,13 @@ def saveScore():
 		ind_ID = int(element["ind"][4:])+1
 		ind_value = int(element["value"])
 		ind_weight = query.get(ind_ID).weight/100
-		print ind_weight
-		score += ind_weight * cat_weight * ind_value
+		upper_value = query.get(ind_ID).upper_value
+		lower_value = query.get(ind_ID).lower_value
+		target_value = query.get(ind_ID).target_value
+		if ind_value <= target_value:
+			ind_score = (ind_value - lower_value)/(target_value - lower_value)
+		elif ind_value >= target_value:
+			ind_score = (upper_value - ind_value)/(upper_value - target_value)
+		print ind_score
+		score += ind_score * ind_weight * cat_weight * 100
 	return str(score)
