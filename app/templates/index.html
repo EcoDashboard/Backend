@@ -17,17 +17,21 @@
         <div class="collapse navbar-collapse navbar-ex1-collapse">
           <ul class="nav navbar-nav">
             <li><a href="dashboard-index.html">Dashboard</a></li>
-            <li><a href="/about-us">About Us</a></li>
             <li><a href="/how-it-works">How It Works</a></li>
             <li class="dropdown alerts-dropdown">
               <a class="dropdown-toggle" data-toggle="dropdown">Check The City<b class="caret"></b></a>
               <ul class="dropdown-menu">
                 <li><a href="/city/206">Seattle, USA</a></li>
                 <li class="divider"></li>
-                <li><a href="#">View All</a></li>
+                <li><a>View All</a></li>
               </ul>
             </li>
+            {% if session %}
+            <li><a href="/dashboard">Your City Data</a></li>
+            <li><a href="/logout">Logout</a></li>
+            {% else %}
             <li><a href="/login">Login</a></li>
+            {% endif %}
           </ul>
         </div><!-- /.navbar-collapse -->
       </div><!-- /.container -->
