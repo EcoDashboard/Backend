@@ -2,7 +2,7 @@ from sqlalchemy import Table, Column, Integer, \
         String, MetaData, join, ForeignKey,func
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import column_property
-from app import db 
+from app import db
 
 class user_data(db.Model):
 	__tablename__ = 'user_data'

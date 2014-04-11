@@ -2,7 +2,7 @@
 from app import app
 from app import models, calculator, db, CityDashboard
 from flask import render_template
-from flask import request, jsonify, session, escape, Response, g, make_response, redirect
+from flask import request, jsonify, session, escape, Response, g, make_response, redirect, url_for
 from flask.ext.assets import Environment, Bundle
 from flask.ext.cors import cross_origin
 from flask.ext.httpauth import HTTPBasicAuth
@@ -114,6 +114,10 @@ def home():
 
 @app.route('/login')
 def login():
+
+    if 'user' in session:
+        return redirect(url_for('home'))
+
     return render_template('login.html')
 
 
@@ -136,9 +140,10 @@ def loginPost():
 
     if user:
         g.user = user
+        session['user'] = user
         token = generate_auth_token()
 
-        return jsonify({'token':token})
+        return redirect(url_for('home'))
     else:
         return make_response("Cannot find user",401)
 
@@ -146,9 +151,10 @@ def loginPost():
 @app.route('/logout', methods=['GET'])
 @crossdomain(origin='*', headers='Content-Type')
 def logout():
-    if 'email' in session:
-        session.pop('email', None)
-        return 'true'
+    if 'user' in session:
+        session.pop('user', None)
+        return redirect(url_for('home'))
+    return redirect(url_for('home'))
 
 @app.route('/checkCityIdExists')
 def checkCityIdExists():
@@ -165,93 +171,103 @@ def checkCityIdExists(city_id):
         return False
 
 
-@app.route('/register', methods=['POST'])
+@app.route('/register', methods=['GET','POST'])
 @crossdomain(origin='*', headers='Content-Type')
 def register():
 
-    # print request.form
+    if request.method == 'GET':
 
-    needed_keys = ['email','password','contact_firstname','contact_lastname', \
-            'city_abbre','city_name','council_name', 'state', 'country',\
-            'postcode', 'area', 'population', 'contact_email',\
-            'contact_number', 'council_address']
+      return render_template('register.html')
 
-    print set(needed_keys) - set(request.form.keys())
+    elif request.method == 'POST':
 
-    if len(set(needed_keys) - set(request.form.keys())) != 0:
-        return make_response("Missing form fields",503)
+      # print request.form
 
-    # user
-    email = urllib.unquote(request.form['email'].strip()).lower()
-    password=request.form['password']
-    hash = hashlib.sha256(password).hexdigest()
-    contact_firstname = request.form['contact_firstname'].strip()
-    contact_lastname = request.form['contact_lastname'].strip()
+      needed_keys = ['email','password','contact_firstname','contact_lastname', 'city_name']
+            #   'city_abbre','city_name','council_name', 'state', 'country',\
+            #   'postcode', 'area', 'population', 'contact_email',\
+            #   'contact_number', 'council_address']
 
-    print 'User fine'
+      print set(needed_keys) - set(request.form.keys())
+      print "avail_keys =>", request.form
 
-    # city
-    city_id = request.form['city_abbre'].strip().upper()
-    city_name = request.form['city_name'].strip()
-    council_name = request.form['council_name'].strip()
-    state = request.form['state'].strip()
-    country = request.form['country'].strip()
-    postcode = request.form['postcode'].strip()
-    area = request.form['area'].strip()
-    population = request.form['population'].strip()
-    contact_email = request.form['contact_email'].strip()
-    contact_number = request.form['contact_number'].strip()
-    council_address = request.form['council_address'].strip()
+      key_result = set(needed_keys) - set(request.form.keys())
 
-    # check
-    errors=[]
-    if not email:
-        errors.append('Email is empty.')
-    elif  models.user_data.query.filter(models.user_data.email == email).first():
-        errors.append('Email has already been used.')
+      if len(key_result) != 0:
+          return make_response("Missing form fields\nNeeded keys => %s" % (key_result),503)
 
-    if not city_id:
-        errors.append('City abbreviation is empty.')
-    elif checkCityIdExists(city_id):
-        errors.append('City Alias has already been used.')
+      # user
+      email = urllib.unquote(request.form['email'].strip()).lower()
+      password=request.form['password']
+      hash = hashlib.sha256(password).hexdigest()
+      contact_firstname = request.form['contact_firstname'].strip()
+      contact_lastname = request.form['contact_lastname'].strip()
 
-    if not re.match("^[0-9]*[.]?[0-9]+$", area):
-        errors.append('Area format is incorrect.')
+      print 'User fine'
 
-    # invalid input
-    if errors:
-        return Response(json.dumps(errors), mimetype='application/json')
+      # city
+    #   city_id = request.form['city_abbre'].strip().upper()
+      city_name = request.form['city_name'].strip()
+      # council_name = request.form['council_name'].strip()
+      # state = request.form['state'].strip()
+      # country = request.form['country'].strip()
+      # postcode = request.form['postcode'].strip()
+      # area = request.form['area'].strip()
+      # population = request.form['population'].strip()
+      # contact_email = request.form['contact_email'].strip()
+      # contact_number = request.form['contact_number'].strip()
+      # council_address = request.form['council_address'].strip()
+      #
+      # check
+      errors=[]
+      if not email:
+          errors.append('Email is empty.')
+      elif  models.user_data.query.filter(models.user_data.email == email).first():
+          errors.append('Email has already been used.')
+      #
+      # if not city_id:
+      #     errors.append('City abbreviation is empty.')
+      # elif checkCityIdExists(city_id):
+      #     errors.append('City Alias has already been used.')
+      #
+      # if not re.match("^[0-9]*[.]?[0-9]+$", area):
+      #     errors.append('Area format is incorrect.')
+      #
+      # # invalid input
+      # if errors:
+      #     return Response(json.dumps(errors), mimetype='application/json')
+      #
+      # print "No errors!"
 
-    print "No errors!"
+      #insert new city
+      # city = models.city_profile_data(
+      #     city_id = city_id,
+      #     city_name = city_name,
+      #     country = country,
+      #     state = state,
+      #     post_code =  postcode,
+      #     population =  population,
+      #     area = area,
+      #     council_name = council_name ,
+      #     contact_email = contact_email,
+      #     contact_number = contact_number,
+      #     council_address = council_address)
+      # db.session.add(city)
+      # db.session.commit()
 
-    #insert new city
-    city = models.city_profile_data(
-        city_id = city_id,
-        city_name = city_name,
-        country = country,
-        state = state,
-        post_code =  postcode,
-        population =  population,
-        area = area,
-        council_name = council_name ,
-        contact_email = contact_email,
-        contact_number = contact_number,
-        council_address = council_address)
-    db.session.add(city)
-    db.session.commit()
+      #insert new user, assign city_admin
+      u = models.user_data(
+          first_name = contact_firstname,
+          last_name = contact_lastname,
+          password = hash,
+          city_id_admin = city_name,
+          email = email)
+      db.session.add(u)
+      db.session.commit()
+      db.session.close()
 
-    #insert new user, assign city_admin
-    u = models.user_data(
-        first_name=contact_firstname,
-        last_name = contact_lastname,
-        password=hash,
-        city_id_admin=city_id,
-        email=email)
-    db.session.add(u)
-    db.session.commit()
-    db.session.close()
 
-    return 'true'
+      return redirect(url_for('home'))
 
 @app.route('/getUserData')
 @crossdomain(origin='*')

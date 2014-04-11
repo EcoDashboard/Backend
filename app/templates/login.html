@@ -1,143 +1,38 @@
 {% extends "layout.html" %}
 
-
 {% block body %}
 
 <div class="login-page">
 
-<!-- Login Block -->
-<div class="row login-wrapper">
-    <div class="col-xs-4 col-md-offset-4">
-    <form id="login_form" class="form-horizontal" role="form" method="post">
-        <div class="form-group">
-            <div class="col-sm-10">
-                <input type="email" class="form-control" id="loginEmail" name="email" placeholder="Username or Email">
-            </div>
-         </div>
-            <div class="form-group">
-                <div class="col-sm-10">
-                    <input type="password" class="form-control" id="loginPasswd" name="password" placeholder="Password">
+    <!-- Login Block -->
+    <div class="row login-wrapper">
+        <div class="col-xs-4 col-md-offset-4">
+            <form id="login_form" class="form-horizontal" role="form" method="post" action="/login">
+                <div class="form-group">
+                    <div class="col-sm-10">
+                        <input type="email" class="form-control" id="loginEmail" name="email" placeholder="Username or Email">
+                    </div>
                 </div>
-            </div>
-            <div class="col-sm-4 col-md-offset-3">
-                <button id="login" type="submit" class="btn btn-success btn-block">Log In</button>
-                <button type="button" class="btn btn-primary btn-block" id="singnup-show">Register</button>
-            </div>
-    </form>
+                <div class="form-group">
+                    <div class="col-sm-10">
+                        <input type="password" class="form-control" id="loginPasswd" name="password" placeholder="Password">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-3">
+                        <button id="login" type="submit" class="btn btn-success btn-block">Log In</button>
+                    </div>
+                    <div class="col-sm-3">
+                        <a class="btn btn-primary btn-block" href="/register">Register</a>
+                    </div>
+                </div>
+            </form>
+        </div>
     </div>
-</div>
-<!-- .Login Block -->
+    <!-- .Login Block -->
 
-<!-- Sign Up Block -->
-<div class="row signup-wrapper">
-    <div class="col-xs-6 col-md-offset-3">
-        <div class="span5">Please, enter required information:</div>
-        <form class="form-horizontal" role="form" method="post" id="signup_form" action="http://tranquil-garden-7617.herokuapp.com/register" target="_blank">
-            <div class="form-group">
-                <label for="" class="col-sm-3 control-label">Email</label>
-                <div class="col-xs-8">
-                    <input type="email" class="form-control" id="signEmail" name="email" placeholder="Email">
-                </div>
-            </div>
-            <div class="form-group">
-                <label for="" class="col-sm-3 control-label">Password</label>
-                <div class="col-xs-8">
-                    <input type="password" class="form-control" name="password" id="signPasswd" placeholder="Password">
-                    <p class="help-block">Passwords must be 8 to 16 characters in length. It is recommended to use upper and lower-case letters, numbers (0-9) and characters (!@$%).</p>
-                </div>
-            </div>
-            <div class="form-group">
-                <label for="" class="col-sm-3 control-label">Repeat Password</label>
-                <div class="col-xs-8">
-                    <input type="password" class="form-control" id="signPasswdRep" placeholder="Repeat Password">
-                </div>
-            </div>
-            <div class="span4">Council Information</div>
-            <div class="form-group">
-                <label for="" class="col-sm-3 control-label">Council Name</label>
-                <div class="col-xs-8">
-                    <input type="text" class="form-control" id="signupConName" name="user_name" placeholder="Council Name">
-                </div>
-            </div>
-            <div class="form-group">
-                <label for="" class="col-sm-3 control-label">Street Address</label>
-                <div class="col-xs-8">
-                    <input type="text" class="form-control" id="signCounName" placeholder="Building Number, Street Name">
-                </div>
-            </div>
-            <div class="form-group">
-                <label for="" class="col-sm-3 control-label">City</label>
-                <div class="col-xs-8">
-                    <input type="text" class="form-control" id="signCity" placeholder="City Name">
-                </div>
-            </div>
-            <div class="form-group">
-                <label for="" class="col-sm-3 control-label">State</label>
-                <div class="col-xs-8">
-                    <input type="text" class="form-control" id="signState" placeholder="State">
-                    <p class="help-block">For United States of America and Australia only</p>
-                </div>
-            </div>
-            <div class="form-group">
-                <label for="" class="col-sm-3 control-label">Country</label>
-                <div class="col-xs-8">
-                    <input type="text" class="form-control" id="signCountry" placeholder="Country">
-                </div>
-            </div>
-            <div class="form-group">
-                <label for="" class="col-sm-3 control-label">Postal Code</label>
-                <div class="col-xs-8">
-                    <input type="text" class="form-control" id="signPostalCode" placeholder="Postal Code">
-                </div>
-            </div>
-            <div class="span4">General Information</div>
-            <div class="form-group">
-                <label for="" class="col-sm-3 control-label">City Area</label>
-                <div class="col-xs-8">
-                    <input type="text" class="form-control" id="signArea" placeholder="City Area is square killomiters">
-                </div>
-            </div>
-            <div class="form-group">
-                <label for="" class="col-sm-3 control-label">City Population</label>
-                <div class="col-xs-8">
-                    <input type="text" class="form-control" id="signPopulation" placeholder="City Population">
-                </div>
-            </div>
-            <div class="span4">Contact Information</div>
-            <div class="form-group form-inline">
-                <label for="" class="col-sm-3 control-label">Name</label>
-                <div class="col-xs-4">
-                    <input type="text" class="form-control" id="signContFName" placeholder="First Name">
-                </div>
-                <div class="col-xs-4">
-                    <input type="text" class="form-control" id="signContLName" placeholder="Last Name">
-                </div>
-            </div>
-            <div class="form-group">
-                <label for="" class="col-sm-3 control-label">Email</label>
-                <div class="col-xs-8">
-                    <input type="email" class="form-control" id="signConEmail" placeholder="Contact's's Email">
-                </div>
-            </div>
-            <div class="form-group">
-                <label for="" class="col-sm-3 control-label">Phone Number</label>
-                <div class="col-xs-8">
-                    <input type="text" class="form-control" id="signContPhone" placeholder="000000000">
-                    <p class="help-block">Please, use only number (0-9)</p>
-                </div>
-            </div>
-            <div class="row signup-error">
-                 <span> Sorry, we found some mistakes in the input fields! </span>
-             </div>
-            <div class="col-sm-4 col-md-offset-3">
-            <button type="submit" class="btn btn-success btn-block" id="signup_button" form="signup_form">Sign Up</button>
-            </div>
-        </form>
-    </div>
-</div>
-
-<div class="row beauties"></div>
-<!-- .Sign In Block -->
+    <div class="row beauties"></div>
+    <!-- .Sign In Block -->
 
     <footer>
         <div class="row">

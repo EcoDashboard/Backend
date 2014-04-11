@@ -37,7 +37,39 @@
       <!--[if lt IE 10]>
           <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
       <![endif]-->
-
+      <nav class="navbar navbar-fixed-top navbar-inverse" role="navigation">
+        <div class="container">
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#/">EcoDashboard</a>
+          </div>
+          <div class="collapse navbar-collapse navbar-ex1-collapse">
+            <ul class="nav navbar-nav">
+              <li><a href="dashboard-index.html">Dashboard</a></li>
+              <li><a href="/how-it-works">How It Works</a></li>
+              <li class="dropdown alerts-dropdown">
+                <a class="dropdown-toggle" data-toggle="dropdown">Check The City<b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                  <li><a href="/city/206">Seattle, USA</a></li>
+                  <li class="divider"></li>
+                  <li><a>View All</a></li>
+                </ul>
+              </li>
+              {% if session %}
+              <li><a href="/dashboard">Your City Data</a></li>
+              <li><a href="/logout">Logout</a></li>
+              {% else %}
+              <li><a href="/login">Login</a></li>
+              {% endif %}
+            </ul>
+          </div><!-- /.navbar-collapse -->
+        </div><!-- /.container -->
+      </nav>
       {% block body %}
       {% endblock %}
 
