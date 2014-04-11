@@ -1,5 +1,6 @@
+#lint:disable
 from app import app
-from app import models, calculator, db
+from app import models, calculator, db, CityDashboard
 from flask import render_template
 from flask import request, jsonify, session, escape, Response, g, make_response, redirect
 from flask.ext.assets import Environment, Bundle
@@ -271,16 +272,25 @@ def getCityProfile():
     city_id = request.values.get("city")
     if city_id:
         city_id = city_id.strip()
-        profiles = db.session\
-            .query(models.showUsers)\
-            .filter(models.showUsers.city_id == city_id)\
-            .all()
-        list = [i.returnString() for i in profiles]
-        return Response(json.dumps(list[0]), mimetype='application/json')
+        #profiles = db.session\
+        #    .query(models.showUsers)\
+        #    .filter(models.showUsers.city_id == city_id)\
+        #    .all()
+        #list = [i.returnString() for i in profiles]
+        citydata = getCityProfileByCityId(city_id)
+        return Response(json.dumps(citydata), mimetype='application/json')
     else:
         profiles = db.session.query(models.showUsers).all()
         list = [i.returnString() for i in profiles]
         return Response(json.dumps(list), mimetype='application/json')
+
+def getCityProfileByCityId(cityid):
+    profiles = db.session\
+        .query(models.showUsers)\
+        .filter(models.showUsers.city_id == cityid)\
+        .all()
+    list = [i.returnString() for i in profiles]
+    return list[0]
 
 @app.route('/indicatorList', methods=['GET'])
 def indicatorList():
@@ -329,3 +339,37 @@ def saveScore():
 		print ind_score
 		score += ind_score * ind_weight * cat_weight * 100
 	return str(score)
+#lint:enable
+
+
+@app.route('/GetDashboard', methods=['POST','GET'])
+@crossdomain(origin='*', headers='Content-Type')
+def GetDashboard():
+
+    city_id = request.values.get("city")
+    #Get data from database
+    cityData = getCityProfileByCityId(city_id)
+
+    city = CityDashboard.CityDashboard()
+    city.cityID = cityData["city_id"]
+    city.cityName = cityData["city_name"]
+    city.cityArea = cityData["area"]
+    city.cityPopulation = cityData["population"]
+    city.lastProfileUpdateDate = ""
+
+    #set council data
+    council = CityDashboard.CityCouncil()
+    council.name = cityData["council_name"]
+    council.address = cityData["council_address"]
+    city.cityCouncilData = council
+
+    #set council contact data
+    contact = CityDashboard.ContactInfo()
+    contact.name = cityData["first_name"] + " " + cityData["last_name"]
+    contact.number = cityData["contact_number"]
+    contact.email = cityData["contact_email"]
+    city.cityCouncilData.contact = contact
+
+    #finalIndex = CityDashboard.FinalIndex()
+
+    return Response(json.dumps(city.returnJson()), mimetype='application/json')
