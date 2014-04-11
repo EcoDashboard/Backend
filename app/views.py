@@ -131,6 +131,7 @@ def index():
 @crossdomain(origin='*', headers=['Content-Type'])
 def loginPost():
 
+
     email=urllib.unquote(request.form['email'])
     password=request.form['password']
 
@@ -142,11 +143,9 @@ def loginPost():
         g.user = user
         session['user'] = user
         token = generate_auth_token()
-
         return redirect(url_for('home'))
     else:
         return make_response("Cannot find user",401)
-
 
 @app.route('/logout', methods=['GET'])
 @crossdomain(origin='*', headers='Content-Type')
@@ -387,5 +386,8 @@ def GetDashboard():
     city.cityCouncilData.contact = contact
 
     #finalIndex = CityDashboard.FinalIndex()
+
+    #categories
+
 
     return Response(json.dumps(city.returnJson()), mimetype='application/json')

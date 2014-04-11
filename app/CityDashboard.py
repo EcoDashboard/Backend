@@ -1,3 +1,5 @@
+import json
+
 class CityDashboard:
     cityID = ""
     cityName = ""
@@ -6,6 +8,7 @@ class CityDashboard:
     lastProfileUpdateDate = ""
     cityCouncilData = None
     finalIndex = None
+    categories = None
 
     def returnJson(self):
         return {
@@ -14,7 +17,8 @@ class CityDashboard:
             'area' : float(self.area),
             'cityPopulation' : float(self.cityPopulation),
             'lastProfileUpdateDate' : self.lastProfileUpdateDate,
-            'cityCouncilData' : self.cityCouncilData.returnJson()
+            'cityCouncilData' : self.cityCouncilData.returnJson(),
+            'categories' : json.dumps(i.returnJson() for i in self.categories)
         }
 
 class CityCouncil:
@@ -50,4 +54,32 @@ class FinalIndex:
             'name' : self.name,
             'indexIDValue' : self.indexIDValue,
             'lastUpdateDate' : self.lastUpdateDate
+        }
+
+class Categories:
+    categoryId = ""
+    categoryName = ""
+    categoryScore = 0.0
+    categoryWeight = 0.0
+    indicators = None
+    def returnJson(self):
+        return {
+            'id' : self.id,
+            'name' : self.name,
+            'indexIDValue' : self.indexIDValue,
+            'lastUpdateDate' : self.lastUpdateDate,
+            'indicators' : json.dumps(i.returnJson() for i in self.indicators)
+        }
+
+class IndicatorData:
+    indicatorId = ""
+    indicatorName = ""
+    originScore = 0.0
+    scaledScore = 0.0
+    def returnJson(self):
+        return {
+            'indicatorId' : self.indicatorId,
+            'indicatorName' : self.indicatorName,
+            'originScore' : self.originScore,
+            'scaledScore' : self.scaledScore
         }
