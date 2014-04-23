@@ -1,5 +1,6 @@
+#lint:disable
 from app import app
-from app import models, calculator, db
+from app import models, calculator, db, CityDashboard
 from flask import render_template
 from flask import request, jsonify, session, escape, Response, g, make_response, redirect, url_for
 from flask.ext.assets import Environment, Bundle
@@ -130,6 +131,7 @@ def index():
 @crossdomain(origin='*', headers=['Content-Type'])
 def loginPost():
 
+
     email=urllib.unquote(request.form['email'])
     password=request.form['password']
 
@@ -141,7 +143,6 @@ def loginPost():
         g.user = user
         session['user'] = user
         token = generate_auth_token()
-
         return redirect(url_for('home'))
     else:
         return make_response("Cannot find user",401)
@@ -155,7 +156,6 @@ def dashboard():
 def evals():
     return render_template('eval.html')
 
-
 @app.route('/logout', methods=['GET'])
 @crossdomain(origin='*', headers='Content-Type')
 def logout():
@@ -163,11 +163,6 @@ def logout():
         session.pop('user', None)
         return redirect(url_for('home'))
     return redirect(url_for('home'))
-
-@app.route('/register_test.html')
-def registerTest():
-    return render_template("register_test.html")
-
 
 @app.route('/checkCityIdExists')
 def checkCityIdExists():
@@ -301,16 +296,25 @@ def getCityProfile():
     city_id = request.values.get("city")
     if city_id:
         city_id = city_id.strip()
-        profiles = db.session\
-            .query(models.showUsers)\
-            .filter(models.showUsers.city_id == city_id)\
-            .all()
-        list = [i.returnString() for i in profiles]
-        return Response(json.dumps(list[0]), mimetype='application/json')
+        #profiles = db.session\
+        #    .query(models.showUsers)\
+        #    .filter(models.showUsers.city_id == city_id)\
+        #    .all()
+        #list = [i.returnString() for i in profiles]
+        citydata = getCityProfileByCityId(city_id)
+        return Response(json.dumps(citydata), mimetype='application/json')
     else:
         profiles = db.session.query(models.showUsers).all()
         list = [i.returnString() for i in profiles]
         return Response(json.dumps(list), mimetype='application/json')
+
+def getCityProfileByCityId(cityid):
+    profiles = db.session\
+        .query(models.showUsers)\
+        .filter(models.showUsers.city_id == cityid)\
+        .all()
+    list = [i.returnString() for i in profiles]
+    return list[0]
 
 @app.route('/indicatorList', methods=['GET'])
 def indicatorList():
@@ -337,12 +341,62 @@ def registerTest():
 @app.route('/saveScore', methods=['POST','GET'])
 @crossdomain(origin='*', headers='Content-Type')
 def saveScore():
-	post = request.json
-    #post = '{ "cat_ID" : 1 , "Indicators" : [ {"ind_01" : 100}, {"ind_02" : 120}, {"ind_03" : 140}, {"ind_04" : 160}, {"ind_05" : 180}, {"ind_06" : 200}, {"ind_07" : 230} ] }'
-	score = 0;
-	#decoded = json.loads(post)
-	#if decoded["cat_ID"] == 1:
-	#	score += decoded["Indicators"][0]["ind_01"]
-	#	score += decoded["Indicators"][1]["ind_02"]
-	value = str(score)
-	return value
+	post = json.dumps(request.json)
+	print post
+	score = 0
+	decoded = json.loads(post)
+	catID = decoded["cat_ID"]
+	cat_weight = models.category_def.query.filter_by(cat_id = catID).first().weight / 100
+	values = decoded["indicators"]
+	query = models.indicator_def.query
+	for element in values:
+		ind_ID = int(element["ind"][4:])+1
+		ind_value = int(element["value"])
+		ind_weight = query.get(ind_ID).weight/100
+		upper_value = query.get(ind_ID).upper_value
+		lower_value = query.get(ind_ID).lower_value
+		target_value = query.get(ind_ID).target_value
+		if ind_value <= target_value:
+			ind_score = (ind_value - lower_value)/(target_value - lower_value)
+		elif ind_value >= target_value:
+			ind_score = (upper_value - ind_value)/(upper_value - target_value)
+		print ind_score
+		score += ind_score * ind_weight * cat_weight * 100
+	return str(score)
+#lint:enable
+
+
+@app.route('/GetDashboard', methods=['POST','GET'])
+@crossdomain(origin='*', headers='Content-Type')
+def GetDashboard():
+
+    city_id = request.values.get("city")
+    #Get data from database
+    cityData = getCityProfileByCityId(city_id)
+
+    city = CityDashboard.CityDashboard()
+    city.cityID = cityData["city_id"]
+    city.cityName = cityData["city_name"]
+    city.cityArea = cityData["area"]
+    city.cityPopulation = cityData["population"]
+    city.lastProfileUpdateDate = ""
+
+    #set council data
+    council = CityDashboard.CityCouncil()
+    council.name = cityData["council_name"]
+    council.address = cityData["council_address"]
+    city.cityCouncilData = council
+
+    #set council contact data
+    contact = CityDashboard.ContactInfo()
+    contact.name = cityData["first_name"] + " " + cityData["last_name"]
+    contact.number = cityData["contact_number"]
+    contact.email = cityData["contact_email"]
+    city.cityCouncilData.contact = contact
+
+    #finalIndex = CityDashboard.FinalIndex()
+
+    #categories
+
+
+    return Response(json.dumps(city.returnJson()), mimetype='application/json')
