@@ -1,0 +1,225 @@
+<div class="row">
+<div id="page-wrapper" class="index-page land-index">
+  <div class="row">
+    <div class="col-lg-12">
+    <h1><i class="fa fa-leaf"></i>&nbsp;Land Report <small>Land sources quality evaluation</small></h1>
+      <ol class="breadcrumb">
+        <li><i class="fa fa-dashboard"></i> <a href="/dashboard.html#/dashboard">EcoReport</a></li>
+        <li class="active"> Land Report</li>
+      </ol>
+    </div>
+  </div><!-- /.row -->
+    
+    <!-- Land Data Input -->
+    <div class="col-lg-12">
+    <div class="row indicators-form" id="land-data">
+      <div class="panel-heading">
+        <a data-toggle="collapse" data-parent="#accordion" href="" data-target="#landForm" class="indicator-collapse-button">
+          <h2><i class="fa fa-download"></i>&nbsp;Imput Your Data Here</h2>
+        </a>
+      </div>
+      <form role="form" class="collapse" id="landForm">
+        <div class="col-xs-6"> <!-- Column 1 -->
+          <div class="form-group">
+            <label for="" class="col-sm-6 control-label">Forest Growing Stock</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" id="" placeholder="Forest Growing Stock in km2">
+              <span class="help-block">Growing stock is a volumetric measure that measures the cubic meters of wood over bark of all living trees more than cm in diameter at breast height. The definition of X may vary by country.</span>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="" class="col-sm-6 control-label">Forest cover change</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" id="" placeholder="Forest cover change">
+              <span class="help-block">The change in froest area between time periods (five years).</span>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="" class="col-sm-6 control-label">Forest Loss</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" id="" placeholder="Forest Loss">
+              <span class="help-block">The indicator represents the loss of forest area owing to deforestation from either human or natural causes, such as forest fires.</span>
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="col-sm-6">
+              <button type="submit" class="btn btn-default">Submit</button>
+              <button type="reset" class="btn btn-default">Reset</button>
+            </div>
+          </div>
+        </div> <!-- /. Column 1 -->
+        <div class="col-lg-6">
+          <div class="form-group">
+            <label for="" class="col-sm-6 control-label">Agricultural Subsidies</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" id="" placeholder="Agricultural Subsidies (AGSUB)">
+              <span class="help-block">This indicator seeks to evaluate the magnitude of subsidies in order to assess the degree of environmental pressure they exert. </span>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="" class="col-sm-6 control-label">Pesticide Regulation</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" id="" placeholder="Pesticide Regulation (POP)">
+              <span class="help-block">The POPs indicator examines the legislative status of countries on one of the landmark agreements on POPs usage, the Stockholm Convention, and also rates the degree to which these countries have followed through on the objectives of the conventions by limiting or outlawing the use of certain toxic chemicals.</span>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="" class="col-sm-6 control-label">Percentage of preserved areas per total land </label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" id="" placeholder="Carbon monoxide (CO) in ppm">
+              <span class="help-block"></span>
+            </div>
+          </div>
+        </div> <!-- /. Column 2 -->
+      </form>
+        </div><!-- /.row -->
+      </div>
+    <!-- /. Land Indicatros -->
+
+      <!-- Land Index -->
+    <div class="row data-line final-index"><!-- row -->
+      <div class="col-lg-12">
+        <div class="row main">
+                    <canvas class="pull-right" tc-chartjs chart-type="doughnut" chart-data="land_index" chart-options="chart_options"  width="250" height="250"></canvas>
+                    <h2 class="featurette-heading"><i class="fa fa-leaf"></i> Land Index:</h2>
+                    <p class="lead">Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus ac cursus commodo.</p>
+            </div>
+      </div>
+
+      <!-- Indicators -->
+      <div class="col-lg-12">
+        <ul class="nav nav-tabs">
+          <li><a data-target="#air-tab" data-toggle="tab">
+            <span></i>Adequate sanitation: </span><span class="indicator-value"></span><br>
+            <canvas class="pull-down" tc-chartjs chart-type="doughnut" chart-data="air_index" chart-options="chart_options" height="70" width="70"></canvas>
+          </a></li>
+          <li><a data-target="#land-tab" data-toggle="tab">
+            <span>Drinking land: </span><span class="indicator-value"></span><br>
+            <canvas class="pull-down" tc-chartjs chart-type="doughnut" chart-data="land_index" chart-options="chart_options" height="70" width="70"></canvas>
+          </a></li>
+          <li><a data-target="#land-tab" data-toggle="tab">
+            <span>Dissolved oxygen: </span><span class="indicator-value"></span><br>
+            <canvas class="pull-down" tc-chartjs chart-type="doughnut" chart-data="land_index" chart-options="chart_options" height="70" width="70"></canvas>
+          </a></li>
+          <li><a data-target="#Land-tab" data-toggle="tab">
+            <span>pH: </span><span class="indicator-value"></span><br>
+            <canvas class="pull-down" tc-chartjs chart-type="doughnut" chart-data="waste_index" chart-options="chart_options" height="70" width="70"></canvas>
+          </a></li>
+          <li><a data-target="#Land-tab" data-toggle="tab">
+            <span>Total nitrogen: </span><span class="indicator-value"></span><br>
+            <canvas class="pull-down" tc-chartjs chart-type="doughnut" chart-data="land_index" chart-options="chart_options" height="70" width="70"></canvas>
+          </a></li>
+          <li><a data-target="#Land-tab" data-toggle="tab">
+            <span>Land Stress: </span><span class="indicator-value"></span><br>
+            <canvas class="pull-down" tc-chartjs chart-type="doughnut" chart-data="air_index" chart-options="chart_options" height="70" width="70"></canvas>
+          </a></li>
+          <li><a data-target="#Land-tab" data-toggle="tab">
+            <span>Sanitary sewage coverage: </span><span class="indicator-value"></span><br>
+            <canvas class="pull-down" tc-chartjs chart-type="doughnut" chart-data="land_index" chart-options="chart_options" height="70" width="70"></canvas>
+          </a></li>
+          <li><a data-target="#Land-tab" data-toggle="tab">
+            <span>Rain sewage coverage: </span><span class="indicator-value"></span><br>
+            <canvas class="pull-down" tc-chartjs chart-type="doughnut" chart-data="energy_index" chart-options="chart_options" height="70" width="70"></canvas>
+          </a></li>
+          <li><a data-target="#Land-tab" data-toggle="tab">
+            <span>Rain sewage coverage: </span><span class="indicator-value"></span><br>
+            <canvas class="pull-down" tc-chartjs chart-type="doughnut" chart-data="land_index" chart-options="chart_options" height="70" width="70"></canvas>
+          </a></li>
+        </ul>
+        <div class="tab-content">
+          <!-- Air Indicators -->
+          <div class="tab-pane" id="air-tab">    
+          </div>
+          <!-- Land Indicators -->
+          <div class="tab-pane" id="land-tab">  
+          </div>
+          <!-- Land Indicators -->
+          <div class="tab-pane" id="land-tab">
+          </div>
+          <!-- Land Indicators -->
+          <div class="tab-pane" id="Land-tab">
+          </div>
+        </div>
+      </div>
+      <!-- /. Sub Indescies -->
+    </div><!-- /.row -->
+    <!-- /.Land Index -->
+
+    <!-- Best Perfomance Indicator -->
+    <div class="row data-line best-index"> <!-- row -->
+      <div class="col-lg-12">
+        <div class="row main">
+          <canvas class="pull-right" tc-chartjs chart-type="doughnut" chart-data="waste_index" chart-options="chart_options" height="250" width="250"></canvas>
+          <h2 class="featurette-heading"><i class="fa fa-star"></i> Best Perfomance</h2>
+          <h2>&nbsp;pH: </span></h2>                    
+          <p>
+            <h3><u>Active project</u></h3>
+            <label class = "report-project" for="Project-Active" >
+              <input checked type="checkbox" name="Project-Active" value="Land Project 1" style="margin-right:10px" id="WP1">
+              <label for="WP1">Land Quality Project Name 1</label><br>
+              <input checked type="checkbox" name="Project-Active" value="Land Project 2" style="margin-right:10px" id="WP2">
+              <label for="WP2">Land Quality Project Name 2</label><br>
+              <input checked type="checkbox" name="Project-Active" value="Land Project 2" style="margin-right:10px" id="WP3">
+              <label for="WP3">Land Quality Project Name 3</label><br>
+              <input checked type="checkbox" name="Project-Active" value="Land Project 2" style="margin-right:10px" id="WP4">
+              <label for="WP4">Land Quality Project Name 4</label><br>
+            </label>
+          </p>
+        </div>
+      </div>
+    </div><!-- /.row -->
+    <!-- Best Perfomance Indicator -->
+    <!-- Worst Perfomance Indincator -->
+    <div class="row data-line worst-index"><!-- row -->
+      <div class="col-lg-12">
+        <div class="row main">
+          <canvas class="pull-right" tc-chartjs chart-type="doughnut" chart-data="energy_index" chart-options="chart_options" height="250" width="250"></canvas>
+          <h2 class="featurette-heading"><i class="fa fa-exclamation"></i> Low Perfomance</h2>
+          <h2>&nbsp;Rain sewage coverage: </span></h2>                    
+          <p>
+            <h3><u>Improvement proposition</u></h3>
+            <label class = "report-project" for="Project-Active" >
+              <input type="checkbox" name="Project-Active" value="Land Project 1" style="margin-right:10px" id="EP1">
+              <label for="EP1">Land Quality Project Name 1</label><br>
+              <input type="checkbox" name="Project-Active" value="Land Project 2" style="margin-right:10px" id="EP2">
+              <label for="EP2">Land Quality Project Name 2</label><br>
+              <input type="checkbox" name="Project-Active" value="Land Project 2" style="margin-right:10px" id="EP3">
+              <label for="EP3">Land Quality Project Name 3</label><br>
+              <input type="checkbox" name="Project-Active" value="Land Project 2" style="margin-right:10px" id="EP4">
+              <label for="EP4">Land Quality Project Name 4</label><br>
+            </label>
+          </p>
+        </div>
+      </div>
+    </div>
+    <!-- /.Worst Perfomance Indicator -->
+
+  <!-- Projects -->
+  <div class="row data-line project-line">
+    <div class="col-lg-12">
+      <div class="row main">
+        <h2><i class="fa fa-tasks"></i>&nbsp;Projects</h2>
+      </div>
+    </div>
+    <div class="col-lg-12">
+      <div class="panel-heading">
+        <div class="col-xs-6">
+          <h3>Active</h3>
+          <label class = "land_report_projects" for="Project-Active" >
+            <input type="checkbox" name="Project-Active" value="Project 1" style="margin-right:10px">Land Quality Project Name 1<br>
+            <input type="checkbox" name="Project-Active" value="Project 2" style="margin-right:10px">Land Quality Project Name 2
+          </label>
+          </div>
+        <div class="col-xs-6">
+          <h3>Proposed</h3>
+          <label class = "land_report_projects" for="Project-Active" >
+            <input type="checkbox" name="Project-Active" value="Land Project 1" style="margin-right:10px">Land Quality Project Name 1<br>
+            <input type="checkbox" name="Project-Active" value="Land Project 2" style="margin-right:10px">Land Quality Project Name 2
+          </label>
+        </div>
+      </div>
+    </div>  
+  </div><!-- /.row -->
+  <!-- /. Projects -->
+</div><!-- /.page-wrapper -->
+</div><!-- /.row -->

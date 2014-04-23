@@ -146,6 +146,15 @@ def loginPost():
     else:
         return make_response("Cannot find user",401)
 
+@app.route('/dashboard', methods=['GET'])
+def dashboard():
+
+    return render_template('dashboard.html')
+
+@app.route('/eval.html', methods=['GET'])
+def evals():
+    return render_template('eval.html')
+
 
 @app.route('/logout', methods=['GET'])
 @crossdomain(origin='*', headers='Content-Type')

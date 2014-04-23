@@ -51,27 +51,27 @@ app.config(['$routeProvider', function($routeProvider){
 	}).
 
 	when('/water/:cityId',{
-		templateUrl:'report_water.html',
-		controller: 'waterCtrl'	
+		templateUrl:'static/report_water.html',
+		controller: 'waterCtrl'
 	}).
 	when('/air/:cityId',{
-		templateUrl:'report_air.html',
-		controller: 'airCtrl'	
+		templateUrl:'static/report_air.html',
+		controller: 'airCtrl'
 	}).
 	when('/land/:cityId',{
-		templateUrl:'report_land.html',
-		controller: 'landCtrl'	
+		templateUrl:'static/report_land.html',
+		controller: 'landCtrl'
 	}).
 	when('/waste/:cityId',{
-		templateUrl:'report_waste.html',
-		controller: 'wasteCtrl'	
+		templateUrl:'static/report_waste.html',
+		controller: 'wasteCtrl'
 	}).
 	when('/energy/:cityId',{
-		templateUrl:'report_energy.html',
-		controller: 'energyCtrl'	
+		templateUrl:'static/report_energy.html',
+		controller: 'energyCtrl'
 	}).
    when('/projects/:cityId', { //   #/projects
-       templateUrl:'projects.html',
+       templateUrl:'static/projects.html',
        controller: 'projectsCtrl'
    }).
    when('/data/:cityId', { //   #/data
@@ -98,10 +98,10 @@ app.controller('dashboardCtrl', ['City', '$scope', '$location', '$routeParams', 
     city = City.get($routeParams.cityId);
     $scope.city = city;
     //console.log("cityId "+ $routeParams.cityId);
-    
+
     if (city != null){
 
-        //ELEMENT DATA SETUP 
+        //ELEMENT DATA SETUP
         for( var d in city.index_data) {
 
             console.log(city.index_data[d]);
@@ -116,15 +116,15 @@ app.controller('dashboardCtrl', ['City', '$scope', '$location', '$routeParams', 
         $location.path('/');
 
     }
-	
-	
+
+
 	$scope.chart_options = {
 			percentageInnerCutout : 70,
 			animationSteps : 60,
 			animationEasing : "easeOutCubic",
 			// animateScale : true,
 			segmentShowStroke: false
-	};	
+	};
 	console.log("Main Dashboard");
 }]);
 
@@ -138,10 +138,10 @@ app.controller('waterCtrl', ['City', '$scope', '$location', '$routeParams', func
 	city = City.get($routeParams.cityId);
     $scope.city = city;
     //console.log("cityId "+ $routeParams.cityId);
-    
+
     if (city != null){
 
-        //ELEMENT DATA SETUP 
+        //ELEMENT DATA SETUP
         for( var d in city.index_data) {
 
             console.log(city.index_data[d]);
@@ -156,15 +156,15 @@ app.controller('waterCtrl', ['City', '$scope', '$location', '$routeParams', func
         $location.path('/');
 
     }
-    
-    
+
+
     $scope.chart_options = {
             percentageInnerCutout : 70,
             animationSteps : 60,
             animationEasing : "easeOutCubic",
             // animateScale : true,
             segmentShowStroke: false
-    };  
+    };
 	console.log("WaterReport");
 
 }]);
@@ -178,10 +178,10 @@ app.controller('airCtrl', ['City', '$scope', '$location', '$routeParams', functi
     city = City.get($routeParams.cityId);
     $scope.city = city;
     //console.log("cityId "+ $routeParams.cityId);
-    
+
     if (city != null){
 
-        //ELEMENT DATA SETUP 
+        //ELEMENT DATA SETUP
         for( var d in city.index_data) {
 
             console.log(city.index_data[d]);
@@ -196,15 +196,15 @@ app.controller('airCtrl', ['City', '$scope', '$location', '$routeParams', functi
         $location.path('/');
 
     }
-    
-    
+
+
     $scope.chart_options = {
             percentageInnerCutout : 70,
             animationSteps : 60,
             animationEasing : "easeOutCubic",
             // animateScale : true,
             segmentShowStroke: false
-    };  
+    };
     console.log("AirReport");
 
 }]);
@@ -218,10 +218,10 @@ app.controller('landCtrl', ['City', '$scope', '$location', '$routeParams', funct
     city = City.get($routeParams.cityId);
     $scope.city = city;
     //console.log("cityId "+ $routeParams.cityId);
-    
+
     if (city != null){
 
-        //ELEMENT DATA SETUP 
+        //ELEMENT DATA SETUP
         for( var d in city.index_data) {
 
             console.log(city.index_data[d]);
@@ -236,15 +236,15 @@ app.controller('landCtrl', ['City', '$scope', '$location', '$routeParams', funct
         $location.path('/');
 
     }
-    
-    
+
+
     $scope.chart_options = {
             percentageInnerCutout : 70,
             animationSteps : 60,
             animationEasing : "easeOutCubic",
             // animateScale : true,
             segmentShowStroke: false
-    };  
+    };
     console.log("LandReport");
 
 }]);
@@ -259,10 +259,10 @@ app.controller('wasteCtrl', ['City', '$scope', '$location', '$routeParams', func
     city = City.get($routeParams.cityId);
     $scope.city = city;
     //console.log("cityId "+ $routeParams.cityId);
-    
+
     if (city != null){
 
-        //ELEMENT DATA SETUP 
+        //ELEMENT DATA SETUP
         for( var d in city.index_data) {
 
             console.log(city.index_data[d]);
@@ -277,15 +277,15 @@ app.controller('wasteCtrl', ['City', '$scope', '$location', '$routeParams', func
         $location.path('/');
 
     }
-    
-    
+
+
     $scope.chart_options = {
             percentageInnerCutout : 70,
             animationSteps : 60,
             animationEasing : "easeOutCubic",
             // animateScale : true,
             segmentShowStroke: false
-    };  
+    };
     console.log("WasteReport");
 
 }]);
@@ -300,10 +300,10 @@ app.controller('energyCtrl', ['City', '$scope', '$location', '$routeParams', fun
     city = City.get($routeParams.cityId);
     $scope.city = city;
     //console.log("cityId "+ $routeParams.cityId);
-    
+
     if (city != null){
 
-        //ELEMENT DATA SETUP 
+        //ELEMENT DATA SETUP
         for( var d in city.index_data) {
 
             console.log(city.index_data[d]);
@@ -318,22 +318,22 @@ app.controller('energyCtrl', ['City', '$scope', '$location', '$routeParams', fun
         $location.path('/');
 
     }
-    
-    
+
+
     $scope.chart_options = {
             percentageInnerCutout : 70,
             animationSteps : 60,
             animationEasing : "easeOutCubic",
             // animateScale : true,
             segmentShowStroke: false
-    };  
+    };
     console.log("EnergyReport");
 
 }]);
 
 app.controller('projectsCtrl', ['$scope', function($scope){
 
-    
+
 
     $scope.project_data = {
 
@@ -386,7 +386,7 @@ app.controller('projectsCtrl', ['$scope', function($scope){
             animationEasing : "easeOutCubic",
             // animateScale : true,
             segmentShowStroke: false
-    };  
+    };
 
 
 
@@ -403,8 +403,7 @@ app.controller('dataCtrl', ['$scope', function($scope){
 			animationEasing : "easeOutCubic",
 			// animateScale : true,
 			segmentShowStroke: false
-	};	
+	};
 	console.log("EnergyReport");
 
 }]);
-

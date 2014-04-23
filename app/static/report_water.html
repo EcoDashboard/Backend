@@ -1,0 +1,254 @@
+<div class="row">
+<div id="page-wrapper" class="index-page water-index">
+  <div class="row">
+    <div class="col-lg-12">
+    <h1><i class="fa fa-tint"></i>&nbsp;Water eport <small>Water quality evaluation</small></h1>
+      <ol class="breadcrumb">
+        <li><i class="fa fa-dashboard"></i> <a href="/dashboard.html#/dashboard">EcoReport</a></li>
+        <li class="active"> Water Report</li>
+      </ol>
+    </div>
+  </div><!-- /.row -->
+
+    <!-- Water Data Input -->
+    <div class="col-lg-12">
+    <div class="row indicators-form" id="water-data">
+      <div class="panel-heading">
+          <a data-toggle="collapse" data-parent="#accordion" href="" data-target="#waterForm" class="indicator-collapse-button">
+            <h2><i class="fa fa-download"></i>&nbsp;Input Your Data Here</h2>
+          </a>
+      </div>
+      <form role="form" id="waterForm" class="collapse">
+        <div class="col-xs-6"> <!-- column 1 -->
+          <div class="form-group">
+            <label for="" class="col-sm-4 control-label">Adequate sanitation</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" id="" placeholder="Adequate sanitation in %">
+            <span class="help-block">Percentage of a region population with access to an improved source of sanitation.</span>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="" class="col-sm-4 control-label">Drinking water</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" id="" placeholder="Drinking water in %">
+              <span class="help-block">Percentage of a region population with access to an improved drinking water source.</span>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="" class="col-sm-4 control-label">Dissolved oxygen</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" id="" placeholder="Dissolved oxygen">
+              <span class="help-block">Measure of free oxygen dissolved in water.</span>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="" class="col-sm-4 control-label">pH</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" id="" placeholder="Dissolved oxygen">
+              <span class="help-block">Measure of the acidity or alkalinity.</span>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="" class="col-sm-4 control-label">Conductivity</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" id="" placeholder="Conductivity">
+              <span class="help-block">Measure of ability of water to carry an electric current.</span>
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="col-sm-6">
+              <button type="submit" class="btn btn-default">Submit</button>
+              <button type="reset" class="btn btn-default">Reset</button>
+            </div>
+          </div>
+        </div> <!-- /. Column 1 -->
+        <div class="col-xs-6"> <!-- Column 2 -->
+          <div class="form-group">
+            <label for="" class="col-sm-4 control-label">Total nitrogen</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" id="" placeholder="Conductivity in mg/L">
+              <span class="help-block">Measure of nutrient pollution.</span>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="" class="col-sm-4 control-label">Total phosphorus</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" id="" placeholder="Total phosphorus in mg/L">
+              <span class="help-block">Measure of nutrient pollution.</span>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="" class="col-sm-4 control-label">Water Stress</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" id="" placeholder="Water Stress in %">
+              <span class="help-block">Percentage of a region territory affected by oversubscription of water resources.</span>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="" class="col-sm-8 control-label">Sanitary sewage coverage</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" id="" placeholder="Sanitary sewage coverage in %">
+              <span class="help-block">Housing coverage with water/sewage service.</span>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="" class="col-sm-8 control-label">Rain sewage coverage</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" id="" placeholder="Water Stress in %">
+              <span class="help-block">Rain sewage coverage.</span>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div> <!-- /. row -->
+    </div>
+    <!-- /. Water Data Input -->
+
+    <!-- Water Index -->
+    <div class="row data-line final-index"><!-- row -->
+      <div class="col-lg-12">
+        <div class="row main">
+                    <canvas class="pull-right" tc-chartjs chart-type="doughnut" chart-data="water_index" chart-options="chart_options"  width="250" height="250"></canvas>
+                    <h2 class="featurette-heading"><i class="fa fa-tint"></i> Water Index:</h2>
+                    <p class="lead">Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus ac cursus commodo.</p>
+            </div>
+      </div>
+
+      <!-- Indicators -->
+      <div class="col-lg-12">
+        <ul class="nav nav-tabs">
+          <li><a data-target="#air-tab" data-toggle="tab">
+            <span></i>Adequate sanitation: </span><span class="indicator-value"></span><br>
+            <canvas class="pull-down" tc-chartjs chart-type="doughnut" chart-data="air_index" chart-options="chart_options" height="70" width="70"></canvas>
+          </a></li>
+          <li><a data-target="#water-tab" data-toggle="tab">
+            <span>Drinking water: </span><span class="indicator-value"></span><br>
+            <canvas class="pull-down" tc-chartjs chart-type="doughnut" chart-data="water_index" chart-options="chart_options" height="70" width="70"></canvas>
+          </a></li>
+          <li><a data-target="#land-tab" data-toggle="tab">
+            <span>Dissolved oxygen: </span><span class="indicator-value"></span><br>
+            <canvas class="pull-down" tc-chartjs chart-type="doughnut" chart-data="land_index" chart-options="chart_options" height="70" width="70"></canvas>
+          </a></li>
+          <li><a data-target="#Water-tab" data-toggle="tab">
+            <span>pH: </span><span class="indicator-value"></span><br>
+            <canvas class="pull-down" tc-chartjs chart-type="doughnut" chart-data="waste_index" chart-options="chart_options" height="70" width="70"></canvas>
+          </a></li>
+          <li><a data-target="#Water-tab" data-toggle="tab">
+            <span>Total nitrogen: </span><span class="indicator-value"></span><br>
+            <canvas class="pull-down" tc-chartjs chart-type="doughnut" chart-data="land_index" chart-options="chart_options" height="70" width="70"></canvas>
+          </a></li>
+          <li><a data-target="#Water-tab" data-toggle="tab">
+            <span>Water Stress: </span><span class="indicator-value"></span><br>
+            <canvas class="pull-down" tc-chartjs chart-type="doughnut" chart-data="air_index" chart-options="chart_options" height="70" width="70"></canvas>
+          </a></li>
+          <li><a data-target="#Water-tab" data-toggle="tab">
+            <span>Sanitary sewage coverage: </span><span class="indicator-value"></span><br>
+            <canvas class="pull-down" tc-chartjs chart-type="doughnut" chart-data="water_index" chart-options="chart_options" height="70" width="70"></canvas>
+          </a></li>
+          <li><a data-target="#Water-tab" data-toggle="tab">
+            <span>Rain sewage coverage: </span><span class="indicator-value"></span><br>
+            <canvas class="pull-down" tc-chartjs chart-type="doughnut" chart-data="energy_index" chart-options="chart_options" height="70" width="70"></canvas>
+          </a></li>
+          <li><a data-target="#Water-tab" data-toggle="tab">
+            <span>Rain sewage coverage: </span><span class="indicator-value"></span><br>
+            <canvas class="pull-down" tc-chartjs chart-type="doughnut" chart-data="land_index" chart-options="chart_options" height="70" width="70"></canvas>
+          </a></li>
+        </ul>
+        <div class="tab-content">
+          <!-- Air Indicators -->
+          <div class="tab-pane" id="air-tab">    
+          </div>
+          <!-- Water Indicators -->
+          <div class="tab-pane" id="water-tab">  
+          </div>
+          <!-- Land Indicators -->
+          <div class="tab-pane" id="land-tab">
+          </div>
+          <!-- Water Indicators -->
+          <div class="tab-pane" id="Water-tab">
+          </div>
+        </div>
+      </div>
+      <!-- /. Sub Indescies -->
+    </div><!-- /.row -->
+    <!-- /.Water Index -->
+
+    <!-- Best Perfomance Indicator -->
+    <div class="row data-line best-index"> <!-- row -->
+      <div class="col-lg-12">
+        <div class="row main">
+          <canvas class="pull-right" tc-chartjs chart-type="doughnut" chart-data="waste_index" chart-options="chart_options" height="250" width="250"></canvas>
+          <h2 class="featurette-heading"><i class="fa fa-star"></i> Best Perfomance</h2>
+          <h2>&nbsp;pH: </span></h2>                    
+          <p>
+            <h3><u>Active project</u></h3>
+            <label class = "report-project" for="Project-Active" >
+              <input checked type="checkbox" name="Project-Active" value="Water Project 1" style="margin-right:10px" id="WP1">
+              <label for="WP1">Water Quality Project Name 1</label><br>
+              <input checked type="checkbox" name="Project-Active" value="Water Project 2" style="margin-right:10px" id="WP2">
+              <label for="WP2">Water Quality Project Name 2</label><br>
+              <input checked type="checkbox" name="Project-Active" value="Water Project 2" style="margin-right:10px" id="WP3">
+              <label for="WP3">Water Quality Project Name 3</label><br>
+              <input checked type="checkbox" name="Project-Active" value="Water Project 2" style="margin-right:10px" id="WP4">
+              <label for="WP4">Water Quality Project Name 4</label><br>
+            </label>
+          </p>
+        </div>
+      </div>
+    </div><!-- /.row -->
+    <!-- Best Perfomance Indicator -->
+    <!-- Worst Perfomance Indincator -->
+    <div class="row data-line worst-index"><!-- row -->
+      <div class="col-lg-12">
+        <div class="row main">
+          <canvas class="pull-right" tc-chartjs chart-type="doughnut" chart-data="energy_index" chart-options="chart_options" height="250" width="250"></canvas>
+          <h2 class="featurette-heading"><i class="fa fa-exclamation"></i> Low Perfomance</h2>
+          <h2>&nbsp;Rain sewage coverage: </span></h2>                    
+          <p>
+            <h3><u>Improvement proposition</u></h3>
+            <label class = "report-project" for="Project-Active" >
+              <input type="checkbox" name="Project-Active" value="Water Project 1" style="margin-right:10px" id="EP1">
+              <label for="EP1">Water Quality Project Name 1</label><br>
+              <input type="checkbox" name="Project-Active" value="Water Project 2" style="margin-right:10px" id="EP2">
+              <label for="EP2">Water Quality Project Name 2</label><br>
+              <input type="checkbox" name="Project-Active" value="Water Project 2" style="margin-right:10px" id="EP3">
+              <label for="EP3">Water Quality Project Name 3</label><br>
+              <input type="checkbox" name="Project-Active" value="Water Project 2" style="margin-right:10px" id="EP4">
+              <label for="EP4">Water Quality Project Name 4</label><br>
+            </label>
+          </p>
+        </div>
+      </div>
+    </div>
+    <!-- /.Worst Perfomance Indicator -->
+
+  <!-- Projects -->
+  <div class="row data-line project-line">
+    <div class="col-lg-12">
+	   	<div class="row main">
+        <h2><i class="fa fa-tasks"></i>&nbsp;Projects</h2>
+      </div>
+    </div>
+    <div class="col-lg-12">
+      <div class="panel-heading">
+        <div class="col-xs-6">
+          <h3>Active</h3>
+          <label class = "water_report_projects" for="Project-Active" >
+            <input type="checkbox" name="Project-Active" value="Project 1" style="margin-right:10px">Water Quality Project Name 1<br>
+            <input type="checkbox" name="Project-Active" value="Project 2" style="margin-right:10px">Water Quality Project Name 2
+          </label>
+          </div>
+        <div class="col-xs-6">
+          <h3>Proposed</h3>
+          <label class = "water_report_projects" for="Project-Active" >
+            <input type="checkbox" name="Project-Active" value="Water Project 1" style="margin-right:10px">Water Quality Project Name 1<br>
+            <input type="checkbox" name="Project-Active" value="Water Project 2" style="margin-right:10px">Water Quality Project Name 2
+          </label>
+        </div>
+      </div>
+    </div>  
+  </div><!-- /.row -->
+  <!-- /. Projects -->
+
+</div><!-- /.page-wrapper -->
+</div><!-- /.row -->
