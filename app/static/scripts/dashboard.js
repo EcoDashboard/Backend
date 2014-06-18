@@ -15,7 +15,7 @@ app.factory('City', ['$http', function($http){
                 "contact_number" : "12065558050",
                 "council_address": "1st Ave, Seattle WA 98105",
                 "index_data" : {
-                    "final_index": 66,
+                    "final_index": 78,
                     "air_index": 65,
                     "water_index": 88,
                     "land_index": 45,
